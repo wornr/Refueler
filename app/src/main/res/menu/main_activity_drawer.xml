@@ -7,24 +7,20 @@
             android:title="@string/cars" />
     </group>
 
-    <item android:title="@string/general">
-        <menu>
-            <group android:id="@+id/menu_group_general" android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_daily_refueling"
-                    android:icon="@drawable/ic_list"
-                    android:title="@string/daily_refueling" />
-                <item
-                    android:id="@+id/nav_statistics"
-                    android:icon="@drawable/ic_statistics"
-                    android:title="@string/statistics" />
-                <item
-                    android:id="@+id/nav_charts"
-                    android:icon="@drawable/ic_charts"
-                    android:title="@string/charts" />
-            </group>
-        </menu>
-    </item>
+    <group android:id="@+id/menu_group_general" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_daily_refueling"
+            android:icon="@drawable/ic_list"
+            android:title="@string/daily_refueling" />
+        <item
+            android:id="@+id/nav_statistics"
+            android:icon="@drawable/ic_statistics"
+            android:title="@string/statistics" />
+        <item
+            android:id="@+id/nav_charts"
+            android:icon="@drawable/ic_charts"
+            android:title="@string/charts" />
+    </group>
 
     <group android:id="@+id/menu_group_settings" android:checkableBehavior="single">
         <item

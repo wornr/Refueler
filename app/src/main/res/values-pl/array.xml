@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Predefined fields for spinners -->
+<!-- Fuel Types -->
+<!--<resources>
+    <string-array name="car_fuel_types_array">
+        <item>Petrol</item>
+        <item>E98</item>
+        <item>ON</item>
+        <item>LPG</item>
+    </string-array>
+</resources>-->
+
+<!-- Fuel Types -->
+<resources>
+    <string-array name="fuel_types_array">
+        <item>Typ paliwa</item>
+        <item>E95</item>
+        <item>E98</item>
+        <item>ON</item>
+        <item>LPG</item>
+    </string-array>
+</resources>

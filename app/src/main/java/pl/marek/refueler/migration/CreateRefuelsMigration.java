@@ -13,6 +13,7 @@ public class CreateRefuelsMigration extends Migration {
                 + "volume TEXT,"
                 + "distance INTEGER,"
                 + "fuelType TEXT,"
+                + "refuelDate TEXT,"
                 + "carId INTEGER"
                 + ");");
     }

@@ -26,6 +26,7 @@ import se.emilsjolander.sprinkles.Query;
 public class AddRefuelingActivity extends AppCompatActivity {
     private Refuel refuel = new Refuel();
     private Car car = new Car();
+    private String fuelType = "";
 
     @Bind(R.id.car_layout)
     LinearLayout car_layout;
@@ -43,7 +44,7 @@ public class AddRefuelingActivity extends AppCompatActivity {
     EditText distance;
 
     @Bind(R.id.set_fuel_type)
-    EditText fuel_type;
+    Spinner spinnerFuelType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,14 +69,14 @@ public class AddRefuelingActivity extends AppCompatActivity {
         }
 
         Car emptyCar = new Car();
-        emptyCar.setBrand("Choose car");
+        emptyCar.setBrand(getString(R.string.choose_car));
 
         List<Car> cars = Query.all(Car.class).get().asList();
         cars.add(0, emptyCar);
 
-        ArrayAdapter<Car> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cars);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCar.setAdapter(spinnerAdapter);
+        ArrayAdapter<Car> spinnerCarAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cars);
+        spinnerCarAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCar.setAdapter(spinnerCarAdapter);
         spinnerCar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -89,10 +90,35 @@ public class AddRefuelingActivity extends AppCompatActivity {
         });
 
         if (car.getId() != 0) {
-            for (int i = 0; i < spinnerAdapter.getCount(); i++) {
+            for (int i = 0; i < spinnerCarAdapter.getCount(); i++) {
                 //noinspection ConstantConditions
-                if (spinnerAdapter.getItem(i).getId() == car.getId()) {
+                if (spinnerCarAdapter.getItem(i).getId() == car.getId()) {
                     spinnerCar.setSelection(i);
+                    break;
+                }
+            }
+        }
+
+        ArrayAdapter<CharSequence> spinnerFuelTypeAdapter = ArrayAdapter.createFromResource(this, R.array.fuel_types_array, android.R.layout.simple_spinner_item);
+        spinnerFuelTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFuelType.setAdapter(spinnerFuelTypeAdapter);
+        spinnerFuelType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                fuelType = (String) spinnerFuelType.getSelectedItem();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        if (!fuelType.equals(getResources().getStringArray(R.array.fuel_types_array)[0])) {
+            for (int i = 0; i < spinnerFuelTypeAdapter.getCount(); i++) {
+                //noinspection ConstantConditions
+                if (spinnerFuelTypeAdapter.getItem(i).equals(fuelType)) {
+                    spinnerFuelType.setSelection(i);
                     break;
                 }
             }
@@ -135,28 +161,28 @@ public class AddRefuelingActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(fuel_price.getText())) {
             refuel.setPrice(fuel_price.getText().toString());
         } else {
-            fuel_price.setError("Pole nie może być puste");
+            fuel_price.setError(getString(R.string.not_empty));
             valid = false;
         }
 
         if (!TextUtils.isEmpty(fuel_volume.getText())) {
             refuel.setVolume(fuel_volume.getText().toString());
         } else {
-            fuel_volume.setError("Pole nie może być puste");
+            fuel_volume.setError(getString(R.string.not_empty));
             valid = false;
         }
 
         if (!TextUtils.isEmpty(distance.getText())) {
             refuel.setDistance(Integer.parseInt(distance.getText().toString()));
         } else {
-            distance.setError("Pole nie może być puste");
+            distance.setError(getString(R.string.not_empty));
             valid = false;
         }
 
-        if (!TextUtils.isEmpty(fuel_type.getText())) {
-            refuel.setFuelType(fuel_type.getText().toString());
+        // TODO fuel type selection validation (set error message)
+        if (!fuelType.equals(getResources().getStringArray(R.array.fuel_types_array)[0])) {
+            refuel.setFuelType(fuelType);
         } else {
-            fuel_volume.setError("Pole nie może być puste");
             valid = false;
         }
 
@@ -186,7 +212,8 @@ public class AddRefuelingActivity extends AppCompatActivity {
         fuel_price.setText(refuel.getPrice(), TextView.BufferType.EDITABLE);
         fuel_volume.setText(refuel.getVolume(), TextView.BufferType.EDITABLE);
         distance.setText(String.valueOf(refuel.getDistance()), TextView.BufferType.EDITABLE);
-        fuel_type.setText(refuel.getFuelType(), TextView.BufferType.EDITABLE);
+
+        fuelType = refuel.getFuelType();
         car.setId(refuel.getCarId());
     }
 }

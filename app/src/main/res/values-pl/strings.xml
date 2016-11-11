@@ -61,11 +61,11 @@
     <string name="mileage">Przebieg</string>
 
     <!-- Refuel -->
+    <string name="choose_car">Wybierz pojazd</string>
     <string name="refuel_cost">Koszt tankowania</string>
     <string name="price_per_liter">Cena za litr</string>
     <string name="refueled">Zatankowano</string>
     <string name="distance_traveled">Przejechano</string>
-    <string name="fuel_type">Typ paliwa</string>
 
     <!-- Empty lists messages -->
     <string name="no_cars">Brak pojazdów</string>
@@ -73,8 +73,13 @@
 
     <!-- Common -->
     <string name="save">Zapisz</string>
-    <string name="general">Ogólne</string>
+    <string name="car_delete">Czy na pewno chcesz usunąć ten pojazd?</string>
+    <string name="refuel_delete">Czy na pewno chcesz usunąć to tankowanie?</string>
 
+    <!-- Validation Errors -->
+    <string name="not_empty">Pole nie może być puste</string>
+    <string name="gt_zero">Wartość musi być więszka od zera</string>
+    <string name="incorrect_year">Należy podać poprawny rok</string>
 
 
 

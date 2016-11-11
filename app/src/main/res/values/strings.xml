@@ -61,11 +61,11 @@
     <string name="mileage">Mileage</string>
 
     <!-- Refuel -->
+    <string name="choose_car">Choose car</string>
     <string name="refuel_cost">Refuel cost</string>
     <string name="price_per_liter">Price per liter</string>
     <string name="refueled">Refueled</string>
     <string name="distance_traveled">Distance traveled</string>
-    <string name="fuel_type">Fuel type</string>
 
     <!-- Empty lists messages -->
     <string name="no_cars">No cars</string>
@@ -73,8 +73,13 @@
 
     <!-- Common -->
     <string name="save">Save</string>
-    <string name="general">General</string>
+    <string name="car_delete">Do you really want to delete this car?</string>
+    <string name="refuel_delete">Do you really want to delete this refuel?</string>
 
+    <!-- Validation Errors -->
+    <string name="not_empty">This field cannot be empty</string>
+    <string name="gt_zero">Value must be greater than zero</string>
+    <string name="incorrect_year">Enter correct year</string>
 
 
 

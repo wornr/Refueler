@@ -33,7 +33,6 @@ public class AddCarActivity extends AppCompatActivity {
     @Bind(R.id.set_totalDistance)
     EditText totalDistance;
 
-    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,14 +88,14 @@ public class AddCarActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(brand.getText())) {
             car.setBrand(brand.getText().toString());
         } else {
-            brand.setError("Pole nie może być puste");
+            brand.setError(getString(R.string.not_empty));
             valid = false;
         }
 
         if (!TextUtils.isEmpty(model.getText())) {
             car.setModel(model.getText().toString());
         } else {
-            model.setError("Pole nie może być puste");
+            model.setError(getString(R.string.not_empty));
             valid = false;
         }
 
@@ -108,11 +107,11 @@ public class AddCarActivity extends AppCompatActivity {
             if (Integer.parseInt(String.valueOf(totalDistance.getText())) > 0) {
                 car.setTotalDistance(Integer.parseInt(totalDistance.getText().toString()));
             } else {
-                totalDistance.setError("Wartość musi być większa od zera");
+                totalDistance.setError(getString(R.string.gt_zero));
                 valid = false;
             }
         } else {
-            totalDistance.setError("Pole nie może być puste");
+            totalDistance.setError(getString(R.string.not_empty));
             valid = false;
         }
 
@@ -121,7 +120,7 @@ public class AddCarActivity extends AppCompatActivity {
             car.setProductionYear(Integer.parseInt(productionYear.getText().toString()));
         } else {
             if(!TextUtils.isEmpty(productionYear.getText())) {
-                productionYear.setError("Należy podać prawidłowy rok");
+                productionYear.setError(getString(R.string.incorrect_year));
                 valid = false;
             }
         }
@@ -134,5 +133,6 @@ public class AddCarActivity extends AppCompatActivity {
         model.setText(car.getModel(), TextView.BufferType.EDITABLE);
         registrationNumber.setText(car.getRegistrationNumber(), TextView.BufferType.EDITABLE);
         totalDistance.setText(String.valueOf(car.getTotalDistance()), TextView.BufferType.EDITABLE);
+        productionYear.setText(String.valueOf(car.getProductionYear()), TextView.BufferType.EDITABLE);
     }
 }

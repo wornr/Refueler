@@ -27,6 +27,9 @@ public class Refuel extends Model implements Serializable {
     @Column("fuelType")
     private String fuelType;
 
+    @Column("refuelDate")
+    private String refuelDate;
+
     @Column("carId")
     private long carId;
 
@@ -68,6 +71,14 @@ public class Refuel extends Model implements Serializable {
 
     public void setFuelType(String fuelType) {
         this.fuelType = fuelType;
+    }
+
+    public String getRefuelDate() {
+        return refuelDate;
+    }
+
+    public void setRefuelDate(String refuelDate) {
+        this.refuelDate = refuelDate;
     }
 
     public long getCarId() {

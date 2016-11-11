@@ -47,6 +47,12 @@ public class DailyRefuelingFragment extends Fragment implements RecyclerViewClic
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initRecyclerView();
+    }
+
     private void initRecyclerView() {
         if (getActivity().getIntent().getExtras() != null)
             if (getActivity().getIntent().getExtras().get("car") != null)
@@ -67,9 +73,9 @@ public class DailyRefuelingFragment extends Fragment implements RecyclerViewClic
         } else if (refuels.isEmpty()) {
             message.setText(R.string.no_refuels);
             message.setVisibility(View.VISIBLE);
-        }
+        } else
+            message.setVisibility(View.GONE);
 
-        message.setVisibility(View.GONE);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -98,7 +104,7 @@ public class DailyRefuelingFragment extends Fragment implements RecyclerViewClic
     public void onDeleteClicked(View v, final int position) {
         if (v.getId() == R.id.delete_icon) {
             new AlertDialog.Builder(getActivity())
-                    .setMessage("Do you really want to delete this refuel?")
+                    .setMessage(getString(R.string.refuel_delete))
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
@@ -111,19 +117,13 @@ public class DailyRefuelingFragment extends Fragment implements RecyclerViewClic
 
     @OnClick(R.id.fab)
     public void onFabClick() {
-        if(cars.isEmpty())
+        if (cars.isEmpty())
             startActivity(new Intent(getActivity(), AddCarActivity.class));
         else {
             Intent intent = new Intent(getActivity(), AddRefuelingActivity.class);
-            if(car != null)
+            if (car != null)
                 intent.putExtra("car", car);
             startActivity(intent);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        initRecyclerView();
     }
 }
