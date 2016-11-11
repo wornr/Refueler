@@ -12,12 +12,13 @@ import java.util.List;
 import pl.marek.refueler.R;
 import pl.marek.refueler.RecyclerViewClickListener;
 import pl.marek.refueler.database.Car;
+import pl.marek.refueler.database.Refuel;
 import se.emilsjolander.sprinkles.Query;
 
 
 public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.CarsHolder> {
     private List<Car> carsFromDb;
-    private RecyclerViewClickListener listener;
+    private final RecyclerViewClickListener listener;
 
     public CarsAdapter(RecyclerViewClickListener listener) {
         this.listener = listener;
@@ -31,23 +32,17 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.CarsHolder> {
 
     @Override
     public void onBindViewHolder(CarsHolder holder, final int position) {
-        /*holder.taskName.setText(carsFromDb.get(position).getEventName());
-        String[] latLng = carsFromDb.get(position).getLocation().split(",");
-        String formatLocation = latLng[0].substring(0, 5) + " " + latLng[1].substring(0, 5);
-        holder.taskLocation.setText(formatLocation);
-
-        if (carsFromDb.get(position).getDate() != null)
-            holder.taskDeadline.setText(carsFromDb.get(position).getDate());
-        else
-            holder.taskDeadline.setText(R.string.unknown_deadline);
-
-        int status = carsFromDb.get(position).getStatus();
-        holder.taskStatus.setText(getTaskStatus(status));*/
-
-        holder.carBrand.setText(carsFromDb.get(position).getBrand());
-        holder.carModel.setText(carsFromDb.get(position).getModel());
+        holder.carBrandModel.setText(carsFromDb.get(position).getBrand() + " " + carsFromDb.get(position).getModel());
         holder.carRegistrationNumber.setText(carsFromDb.get(position).getRegistrationNumber());
-        //holder.carTotalDistance.setText(carsFromDb.get(position).getTotalDistance());
+
+        List<Refuel> refuels = Query.many(Refuel.class, "SELECT * FROM Refuels WHERE carId = ?", carsFromDb.get(position).getId()).get().asList();
+        long totalDistance = 0;
+        if(refuels != null) {
+            for (Refuel refuel : refuels) {
+                totalDistance += refuel.getDistance();
+            }
+        }
+        holder.carTotalDistance.setText(String.valueOf(carsFromDb.get(position).getTotalDistance() + totalDistance) + " km");
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,8 +87,7 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.CarsHolder> {
     }
 
     class CarsHolder extends RecyclerView.ViewHolder {
-        final TextView carBrand;
-        final TextView carModel;
+        final TextView carBrandModel;
         final TextView carRegistrationNumber;
         final TextView carTotalDistance;
         final ImageView editIcon;
@@ -101,8 +95,7 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.CarsHolder> {
 
         CarsHolder(View view) {
             super(view);
-            carBrand = (TextView) view.findViewById(R.id.car_brand);
-            carModel = (TextView) view.findViewById(R.id.car_model);
+            carBrandModel = (TextView) view.findViewById(R.id.car_brand_and_model);
             carRegistrationNumber = (TextView) view.findViewById(R.id.car_registrationNumber);
             carTotalDistance = (TextView) view.findViewById(R.id.car_totalDistance);
             editIcon = (ImageView) view.findViewById(R.id.edit_icon);

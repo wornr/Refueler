@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.List;
 
 import pl.marek.refueler.R;
@@ -20,7 +18,7 @@ import se.emilsjolander.sprinkles.Query;
 
 public class RefuelsAdapter extends RecyclerView.Adapter<RefuelsAdapter.RefuelsHolder> {
     private List<Refuel> refuelFromDb;
-    private RecyclerViewClickListener listener;
+    private final RecyclerViewClickListener listener;
 
     public RefuelsAdapter(RecyclerViewClickListener listener) {
         this.listener = listener;
@@ -101,7 +99,7 @@ public class RefuelsAdapter extends RecyclerView.Adapter<RefuelsAdapter.RefuelsH
         final TextView refuelTotalPrice;
         final TextView refuelFuelVolume;
         final TextView refuelDistance;
-        final TextView refuelTotalDistance;
+        //final TextView refuelTotalDistance;
         final ImageView editIcon;
         final ImageView deleteIcon;
 
@@ -111,7 +109,7 @@ public class RefuelsAdapter extends RecyclerView.Adapter<RefuelsAdapter.RefuelsH
             refuelTotalPrice = (TextView) view.findViewById(R.id.refuel_total_price);
             refuelFuelVolume = (TextView) view.findViewById(R.id.refuel_fuel_volume);
             refuelDistance = (TextView) view.findViewById(R.id.refuel_distance);
-            refuelTotalDistance = (TextView) view.findViewById(R.id.refuel_total_distance);
+            //refuelTotalDistance = (TextView) view.findViewById(R.id.refuel_total_distance);
             editIcon = (ImageView) view.findViewById(R.id.edit_icon);
             deleteIcon = (ImageView) view.findViewById(R.id.delete_icon);
         }

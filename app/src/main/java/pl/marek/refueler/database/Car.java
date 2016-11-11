@@ -9,6 +9,21 @@ import se.emilsjolander.sprinkles.annotations.Table;
 
 @Table("Cars")
 public class Car extends Model implements Serializable {
+    public Car() {
+        id = 0;
+        brand = "";
+        model = "";
+        registrationNumber = "";
+        productionYear = 0;
+        totalDistance = 0;
+        fuelType = "";
+    }
+
+    public String toString()
+    {
+        return(brand + " " + model);
+    }
+
     @Key
     @AutoIncrement
     @Column("id")

@@ -1,7 +1,6 @@
 package pl.marek.refueler.database;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import se.emilsjolander.sprinkles.Model;
 import se.emilsjolander.sprinkles.annotations.AutoIncrement;
@@ -27,6 +26,9 @@ public class Refuel extends Model implements Serializable {
 
     @Column("fuelType")
     private String fuelType;
+
+    @Column("carId")
+    private long carId;
 
     public long getId() {
         return id;
@@ -66,5 +68,13 @@ public class Refuel extends Model implements Serializable {
 
     public void setFuelType(String fuelType) {
         this.fuelType = fuelType;
+    }
+
+    public long getCarId() {
+        return carId;
+    }
+
+    public void setCarId(long carId) {
+        this.carId = carId;
     }
 }

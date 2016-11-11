@@ -25,7 +25,7 @@ import pl.marek.refueler.fragments.StatisticsFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String PREF_LAST_DRAWER_FRAGMENT = "last_selected_drawer_fragment";
+    private static final String PREF_LAST_DRAWER_FRAGMENT = "last_selected_main_drawer_fragment";
     private static final DrawerFragmentItem[] DRAWER_FRAGMENTS = new DrawerFragmentItem[]{
             new DrawerFragmentItem(R.id.nav_cars, "crs", CarsFragment.class),
             new DrawerFragmentItem(R.id.nav_daily_refueling, "drf", DailyRefuelingFragment.class),

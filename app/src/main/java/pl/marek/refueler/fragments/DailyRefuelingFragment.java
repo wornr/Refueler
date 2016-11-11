@@ -3,7 +3,6 @@ package pl.marek.refueler.fragments;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -27,8 +26,10 @@ import pl.marek.refueler.adapters.CarsAdapter;
 import pl.marek.refueler.adapters.RefuelsAdapter;
 import pl.marek.refueler.database.Car;
 import pl.marek.refueler.database.Refuel;
+import se.emilsjolander.sprinkles.Query;
 
 public class DailyRefuelingFragment extends Fragment implements RecyclerViewClickListener {
+    private Car car = null;
     private List<Car> cars;
     private List<Refuel> refuels;
 
@@ -37,9 +38,6 @@ public class DailyRefuelingFragment extends Fragment implements RecyclerViewClic
 
     @Bind(R.id.empty_message)
     TextView message;
-
-    @Bind(R.id.fab)
-    FloatingActionButton refuelsListFab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,17 +48,24 @@ public class DailyRefuelingFragment extends Fragment implements RecyclerViewClic
     }
 
     private void initRecyclerView() {
+        if (getActivity().getIntent().getExtras() != null)
+            if (getActivity().getIntent().getExtras().get("car") != null)
+                car = (Car) getActivity().getIntent().getExtras().get("car");
+
         CarsAdapter carsAdapter = new CarsAdapter(this);
         cars = carsAdapter.getCars();
 
         RefuelsAdapter refuelsAdapter = new RefuelsAdapter(this);
-        refuels = refuelsAdapter.getRefuels();
+        if(car != null)
+            refuels = Query.many(Refuel.class, "SELECT * FROM Refuels WHERE carId = ?", car.getId()).get().asList();
+        else
+            refuels = refuelsAdapter.getRefuels();
 
         if(cars.isEmpty()) {
-            message.setText("Brak pojazdów");
+            message.setText(R.string.no_cars);
             message.setVisibility(View.VISIBLE);
         } else if (refuels.isEmpty()) {
-            message.setText("Brak tankowań");
+            message.setText(R.string.no_refuels);
             message.setVisibility(View.VISIBLE);
         }
 
@@ -82,6 +87,8 @@ public class DailyRefuelingFragment extends Fragment implements RecyclerViewClic
     public void onEditClicked(View v, int position) {
         if (v.getId() == R.id.edit_icon) {
             Intent intent = new Intent(getActivity(), AddRefuelingActivity.class);
+            if(car != null)
+                intent.putExtra("car", car);
             intent.putExtra("refuel", refuels.get(position));
             startActivity(intent);
         }
@@ -106,8 +113,12 @@ public class DailyRefuelingFragment extends Fragment implements RecyclerViewClic
     public void onFabClick() {
         if(cars.isEmpty())
             startActivity(new Intent(getActivity(), AddCarActivity.class));
-        else
-            startActivity(new Intent(getActivity(), AddRefuelingActivity.class));
+        else {
+            Intent intent = new Intent(getActivity(), AddRefuelingActivity.class);
+            if(car != null)
+                intent.putExtra("car", car);
+            startActivity(intent);
+        }
     }
 
     @Override

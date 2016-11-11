@@ -1,29 +1,37 @@
 package pl.marek.refueler.activities;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.marek.refueler.R;
+import pl.marek.refueler.database.Car;
 import pl.marek.refueler.database.Refuel;
+import se.emilsjolander.sprinkles.Query;
 
 public class AddRefuelingActivity extends AppCompatActivity {
     private Refuel refuel = new Refuel();
+    private Car car = new Car();
 
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
+    @Bind(R.id.car_layout)
+    LinearLayout car_layout;
+
+    @Bind(R.id.set_car)
+    Spinner spinnerCar;
 
     @Bind(R.id.set_fuel_price)
     EditText fuel_price;
@@ -45,13 +53,48 @@ public class AddRefuelingActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null)
+        if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if(getIntent().getExtras() != null) {
-            refuel = (Refuel) getIntent().getExtras().get("refuel");
-            if (refuel != null) {
+        if (getIntent().getExtras() != null) {
+            if (getIntent().getExtras().get("refuel") != null) {
+                refuel = (Refuel) getIntent().getExtras().get("refuel");
                 setRefuel();
+            }
+            if (getIntent().getExtras().get("car") != null) {
+                car = (Car) getIntent().getExtras().get("car");
+                car_layout.setVisibility(View.GONE);
+            }
+        }
+
+        Car emptyCar = new Car();
+        emptyCar.setBrand("Choose car");
+
+        List<Car> cars = Query.all(Car.class).get().asList();
+        cars.add(0, emptyCar);
+
+        ArrayAdapter<Car> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cars);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCar.setAdapter(spinnerAdapter);
+        spinnerCar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                car = (Car) spinnerCar.getSelectedItem();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        if (car.getId() != 0) {
+            for (int i = 0; i < spinnerAdapter.getCount(); i++) {
+                //noinspection ConstantConditions
+                if (spinnerAdapter.getItem(i).getId() == car.getId()) {
+                    spinnerCar.setSelection(i);
+                    break;
+                }
             }
         }
     }
@@ -66,24 +109,19 @@ public class AddRefuelingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_save) {
+        if(id == android.R.id.home) {
+            finish();
+        } else if (id == R.id.action_save) {
             saveRefuel();
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     public void saveRefuel() {
         Refuel refuel = new Refuel();
 
-        if (this.refuel != null) {
-            refuel.setId(this.refuel.getId());
-        }
-
-        refuel.setPrice(this.refuel.getPrice());
-        refuel.setVolume(this.refuel.getVolume());
-        refuel.setDistance(this.refuel.getDistance());
-        refuel.setFuelType(this.refuel.getFuelType());
+        refuel.setId(this.refuel.getId());
 
         if (refuelValidation(refuel)) {
             refuel.save();
@@ -122,6 +160,13 @@ public class AddRefuelingActivity extends AppCompatActivity {
             valid = false;
         }
 
+        // TODO car selection validation (set error message)
+        refuel.setCarId(car.getId());
+        if (spinnerCar.getVisibility() == View.VISIBLE) {
+            if(car.getId() == 0)
+                valid = false;
+        }
+
         /*if(!TextUtils.isEmpty(totalDistance.getText())) {
             if (Integer.parseInt(String.valueOf(totalDistance.getText())) > 0) {
                 car.setTotalDistance(Integer.parseInt(totalDistance.getText().toString()));
@@ -142,5 +187,6 @@ public class AddRefuelingActivity extends AppCompatActivity {
         fuel_volume.setText(refuel.getVolume(), TextView.BufferType.EDITABLE);
         distance.setText(String.valueOf(refuel.getDistance()), TextView.BufferType.EDITABLE);
         fuel_type.setText(refuel.getFuelType(), TextView.BufferType.EDITABLE);
+        car.setId(refuel.getCarId());
     }
 }

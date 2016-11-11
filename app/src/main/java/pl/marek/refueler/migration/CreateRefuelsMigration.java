@@ -12,7 +12,8 @@ public class CreateRefuelsMigration extends Migration {
                 + "price TEXT,"
                 + "volume TEXT,"
                 + "distance INTEGER,"
-                + "fuelType TEXT"
+                + "fuelType TEXT,"
+                + "carId INTEGER"
                 + ");");
     }
 }

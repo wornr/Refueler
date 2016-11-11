@@ -7,7 +7,7 @@
             android:title="@string/cars" />
     </group>
 
-    <item android:title="Ogólne">
+    <item android:title="@string/general">
         <menu>
             <group android:id="@+id/menu_group_general" android:checkableBehavior="single">
                 <item

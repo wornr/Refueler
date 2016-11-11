@@ -24,6 +24,33 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/car_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginBottom="14dp"
+                android:layout_marginLeft="6dp"
+                android:orientation="horizontal"
+                android:weightSum="1.0"
+                android:baselineAligned="false">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight=".25"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:text="@string/car"/>
+
+                <Spinner
+                    android:id="@+id/set_car"
+                    android:layout_width="0dp"
+                    android:layout_weight=".75"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -44,7 +71,7 @@
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
                         android:inputType="numberDecimal"
-                        android:hint="Cena za litr"
+                        android:hint="@string/price_per_liter"
                         android:maxLines="1"
                         android:maxLength="5"/>
                 </android.support.design.widget.TextInputLayout>
@@ -63,7 +90,7 @@
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
                         android:inputType="numberDecimal"
-                        android:hint="Pojemność"
+                        android:hint="@string/refueled"
                         android:maxLines="1"
                         android:maxLength="5"/>
                 </android.support.design.widget.TextInputLayout>
@@ -91,7 +118,7 @@
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
                         android:inputType="number"
-                        android:hint="Dystans"
+                        android:hint="@string/distance_traveled"
                         android:maxLines="1"
                         android:maxLength="5"/>
                 </android.support.design.widget.TextInputLayout>
@@ -110,7 +137,7 @@
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
                         android:inputType="text"
-                        android:hint="Typ paliwa"
+                        android:hint="@string/fuel_type"
                         android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>

@@ -8,21 +8,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
-import java.sql.Ref;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.marek.refueler.R;
 import pl.marek.refueler.Services;
+import pl.marek.refueler.database.Car;
 import pl.marek.refueler.database.Refuel;
 import se.emilsjolander.sprinkles.Query;
 
 public class StatisticsFragment extends Fragment {
-    String currencyUnit = "zł";
-    String volumeUnit = "l";
-    String distanceUnit = "km";
-
+    private Car car = null;
     private List<Refuel> refuels;
     private BigDecimal totalFuelUsed = new BigDecimal(0);
     private BigDecimal totalDistanceCovered = new BigDecimal(0);
@@ -94,7 +91,15 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void initView() {
-        refuels = Query.all(Refuel.class).get().asList();
+        Bundle extras = getActivity().getIntent().getExtras();
+        if(extras != null)
+            car = (Car) extras.get("car");
+
+        if (car != null) {
+            refuels = Query.many(Refuel.class, "SELECT * FROM Refuels WHERE carId = ?", car.getId()).get().asList();
+        } else {
+            refuels = Query.all(Refuel.class).get().asList();
+        }
 
         if(refuels != null) {
             for(Refuel refuel : refuels) {
@@ -136,7 +141,12 @@ public class StatisticsFragment extends Fragment {
 
     private void initCosts() {
         // minimal money spent for bill
-        Refuel var_cost_min_money_spent = Query.one(Refuel.class, "SELECT * FROM Refuels ORDER BY price ASC").get();
+        Refuel var_cost_min_money_spent;
+        if(car != null)
+            var_cost_min_money_spent = Query.one(Refuel.class, "SELECT * FROM Refuels WHERE carId = ? ORDER BY price ASC", car.getId()).get();
+        else
+            var_cost_min_money_spent = Query.one(Refuel.class, "SELECT * FROM Refuels ORDER BY price ASC").get();
+
         if (var_cost_min_money_spent != null)
             cost_min_money_spent.setText(addCurrencyUnit(Services.getInstance().multiplyString(var_cost_min_money_spent.getPrice(), var_cost_min_money_spent.getVolume())));
         else
@@ -146,21 +156,36 @@ public class StatisticsFragment extends Fragment {
         cost_avg_money_spent.setText(addCurrencyUnit(averageCost.toPlainString()));
 
         // maximal money spent for bill
-        Refuel var_cost_max_money_spent = Query.one(Refuel.class, "SELECT * FROM Refuels ORDER BY price DESC").get();
+        Refuel var_cost_max_money_spent;
+        if(car != null)
+            var_cost_max_money_spent = Query.one(Refuel.class, "SELECT * FROM Refuels WHERE carId = ? ORDER BY price DESC", car.getId()).get();
+        else
+            var_cost_max_money_spent = Query.one(Refuel.class, "SELECT * FROM Refuels ORDER BY price DESC").get();
+
         if (var_cost_max_money_spent != null)
             cost_max_money_spent.setText(addCurrencyUnit(Services.getInstance().multiplyString(var_cost_max_money_spent.getPrice(), var_cost_max_money_spent.getVolume())));
         else
             cost_max_money_spent.setText(addCurrencyUnit("0"));
 
         // Smallest fuel price
-        Refuel var_cost_smallest_price = Query.one(Refuel.class, "SELECT * FROM Refuels ORDER BY price ASC").get();
+        Refuel var_cost_smallest_price;
+        if(car != null)
+            var_cost_smallest_price = Query.one(Refuel.class, "SELECT * FROM Refuels WHERE carId = ? ORDER BY price ASC", car.getId()).get();
+        else
+            var_cost_smallest_price = Query.one(Refuel.class, "SELECT * FROM Refuels ORDER BY price ASC").get();
+
         if (var_cost_smallest_price != null)
             cost_smallest_price.setText(addCurrencyUnit(var_cost_smallest_price.getPrice()));
         else
             cost_smallest_price.setText(addCurrencyUnit("0"));
 
         // Biggest fuel price
-        Refuel var_cost_biggest_price = Query.one(Refuel.class, "SELECT * FROM Refuels ORDER BY price DESC").get();
+        Refuel var_cost_biggest_price;
+        if(car != null)
+            var_cost_biggest_price = Query.one(Refuel.class, "SELECT * FROM Refuels WHERE carId = ? ORDER BY price DESC", car.getId()).get();
+        else
+            var_cost_biggest_price = Query.one(Refuel.class, "SELECT * FROM Refuels ORDER BY price DESC").get();
+
         if (var_cost_biggest_price != null)
             cost_biggest_price.setText(addCurrencyUnit(var_cost_biggest_price.getPrice()));
         else
@@ -168,14 +193,17 @@ public class StatisticsFragment extends Fragment {
     }
 
     private String addCurrencyUnit(String value) {
+        String currencyUnit = "zł";
         return value + " " + currencyUnit;
     }
 
     private String addVolumeUnit(String value) {
+        String volumeUnit = "l";
         return value + " " + volumeUnit;
     }
 
     private String addDistanceUnit(String value) {
+        String distanceUnit = "km";
         return value + " " + distanceUnit;
     }
 }

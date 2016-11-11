@@ -18,16 +18,14 @@ import android.view.MenuItem;
 import pl.marek.refueler.InformationDialog;
 import pl.marek.refueler.R;
 import pl.marek.refueler.activities.SettingsActivity;
-import pl.marek.refueler.car.fragments.ChartsFragment;
-import pl.marek.refueler.car.fragments.DailyRefuelingFragment;
-import pl.marek.refueler.car.fragments.StatisticsFragment;
+import pl.marek.refueler.fragments.ChartsFragment;
+import pl.marek.refueler.fragments.DailyRefuelingFragment;
+import pl.marek.refueler.fragments.StatisticsFragment;
 import pl.marek.refueler.database.Car;
 
 public class CarActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Car car = null;
-
-    private static final String PREF_LAST_DRAWER_FRAGMENT = "last_selected_drawer_fragment";
+    private static final String PREF_LAST_DRAWER_FRAGMENT = "last_selected_car_drawer_fragment";
     private static final DrawerFragmentItem[] DRAWER_FRAGMENTS = new DrawerFragmentItem[]{
             new DrawerFragmentItem(R.id.nav_daily_refueling, "drf", DailyRefuelingFragment.class),
             new DrawerFragmentItem(R.id.nav_statistics, "sts", StatisticsFragment.class),
@@ -56,7 +54,7 @@ public class CarActivity extends AppCompatActivity implements NavigationView.OnN
         }
 
         if(getIntent().getExtras() != null) {
-            car = (Car) getIntent().getExtras().get("car");
+            Car car = (Car) getIntent().getExtras().get("car");
             if (car != null) {
                 getSupportActionBar().setTitle(car.getBrand() + " " + car.getModel());
             }

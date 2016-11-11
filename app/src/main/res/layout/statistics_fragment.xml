@@ -21,7 +21,8 @@
             android:layout_marginBottom="5dp"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:text="GENERAL" />
+            android:textAllCaps="true"
+            android:text="@string/general_statistics" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +44,7 @@
                     android:id="@+id/tv_distance_covered"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Przejechany dystans" />
+                    android:text="@string/distance_traveled" />
 
                 <View
                     android:layout_width="match_parent"
@@ -54,7 +55,7 @@
                     android:id="@+id/tv_fuel_usage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Całkowite zużycie paliwa" />
+                    android:text="@string/total_fuel_usage" />
 
                 <View
                     android:layout_width="match_parent"
@@ -65,7 +66,7 @@
                     android:id="@+id/tv_refuel_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Liczba tankowań" />
+                    android:text="@string/refueling_count" />
 
                 <View
                     android:layout_width="match_parent"
@@ -76,7 +77,7 @@
                     android:id="@+id/tv_money_spent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Całkowity koszt" />
+                    android:text="@string/overall_cost" />
 
             </LinearLayout>
 
@@ -131,7 +132,8 @@
             android:layout_marginBottom="5dp"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:text="FUEL" />
+            android:textAllCaps="true"
+            android:text="@string/fuel_statistics" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -153,7 +155,7 @@
                     android:id="@+id/tv_min_consumption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Minimalne zużycie" />
+                    android:text="@string/minimal_fuel_consumption" />
 
                 <View
                     android:layout_width="match_parent"
@@ -164,7 +166,7 @@
                     android:id="@+id/tv_avg_consumption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Srednie zużycie" />
+                    android:text="@string/average_fuel_consumption" />
 
                 <View
                     android:layout_width="match_parent"
@@ -175,7 +177,7 @@
                     android:id="@+id/tv_max_consumption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Maksymalne zużycie" />
+                    android:text="@string/maximal_fuel_consumption" />
 
                 <View
                     android:layout_width="match_parent"
@@ -186,7 +188,7 @@
                     android:id="@+id/tv_fuel_this_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="W tym roku" />
+                    android:text="@string/this_year" />
 
                 <View
                     android:layout_width="match_parent"
@@ -197,7 +199,7 @@
                     android:id="@+id/tv_fuel_this_month"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="W tym miesiącu" />
+                    android:text="@string/this_month" />
 
                 <View
                     android:layout_width="match_parent"
@@ -208,7 +210,7 @@
                     android:id="@+id/tv_fuel_prev_month"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="W poprzednim miesiącu" />
+                    android:text="@string/prev_month" />
             </LinearLayout>
 
             <LinearLayout
@@ -293,7 +295,8 @@
             android:layout_marginBottom="5dp"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:text="COSTS" />
+            android:textAllCaps="true"
+            android:text="@string/cost_statistics" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -314,7 +317,7 @@
                     android:id="@+id/tv_cost_min_money_spent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Najmniejszy rachunek" />
+                    android:text="@string/lowest_bill" />
 
                 <View
                     android:layout_width="match_parent"
@@ -325,7 +328,7 @@
                     android:id="@+id/tv_cost_avg_money_spent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sredni rachunek" />
+                    android:text="@string/average_bill" />
 
                 <View
                     android:layout_width="match_parent"
@@ -336,7 +339,7 @@
                     android:id="@+id/tv_cost_max_money_spent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Największy rachunek" />
+                    android:text="@string/highest_bill" />
 
                 <View
                     android:layout_width="match_parent"
@@ -347,7 +350,7 @@
                     android:id="@+id/tv_cost_smallest_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Najniższa cena paliwa" />
+                    android:text="@string/lowest_fuel_price" />
 
                 <View
                     android:layout_width="match_parent"
@@ -358,7 +361,7 @@
                     android:id="@+id/tv_cost_biggest_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Najwyższa cena paliwa" />
+                    android:text="@string/highest_fuel_price" />
 
                 <View
                     android:layout_width="match_parent"
@@ -369,7 +372,7 @@
                     android:id="@+id/tv_cost_this_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="W tym roku" />
+                    android:text="@string/this_year" />
 
                 <View
                     android:layout_width="match_parent"
@@ -380,7 +383,7 @@
                     android:id="@+id/tv_cost_this_month"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="W tym miesiącu" />
+                    android:text="@string/this_month" />
 
                 <View
                     android:layout_width="match_parent"
@@ -391,7 +394,7 @@
                     android:id="@+id/tv_cost_prev_month"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="W poprzednim miesiącu" />
+                    android:text="@string/prev_month" />
             </LinearLayout>
 
             <LinearLayout

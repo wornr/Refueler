@@ -1,44 +1,107 @@
 <resources>
     <string name="app_name">Refueler</string>
 
+    <!-- Activities Titles -->
+    <string name="title_activity_settings">Ustawienia</string>
+    <string name="title_activity_add_car">Dodaj pojazd</string>
+    <string name="title_activity_add_refueling">Dodaj tankowanie</string>
+    <string name="title_activity_car">Pojazd</string>
+
+
     <!-- navigation -->
     <string name="navigation_drawer_open">Otwórz nawigację</string>
     <string name="navigation_drawer_close">Zamknij nawigację</string>
 
-    <string name="homepage">Strona główna</string>
     <string name="daily_refueling">Dziennik tankowań</string>
     <string name="statistics">Statystyki</string>
     <string name="charts">Wykresy</string>
     <string name="cars">Pojazdy</string>
     <string name="action_settings">Ustawienia</string>
     <string name="info">Informacje</string>
+
+    <!-- Statistics -->
+    <!-- Groups -->
+    <string name="general_statistics">Ogólne</string>
+    <string name="fuel_statistics">Paliwo</string>
+    <string name="cost_statistics">Koszty</string>
+
+    <!-- General -->
+    <string name="total_fuel_usage">Całkowite zużycie paliwa</string>
+    <string name="refueling_count">Liczba tankowań</string>
+    <string name="overall_cost">Całkowity koszt</string>
+
+    <!-- Fuel -->
+    <string name="minimal_fuel_consumption">Minimalne zużycie</string>
+    <string name="average_fuel_consumption">Średnie zużycie</string>
+    <string name="maximal_fuel_consumption">Maksymalne zużycie</string>
+
+    <!-- Cost -->
+    <string name="lowest_bill">Najniższy rachunek</string>
+    <string name="average_bill">Średni rachunek</string>
+    <string name="highest_bill">Najwyższy rachunek</string>
+    <string name="lowest_fuel_price">Najniższa cena paliwa</string>
+    <string name="highest_fuel_price">Najwyższa cena paliwa</string>
+
+    <!-- Common -->
+    <string name="this_year">W tym roku</string>
+    <string name="this_month">W tym miesiącu</string>
+    <string name="prev_month">W poprzednim miesiącu</string>
+
+    <!-- Information Dialog -->
+    <string name="application">Aplikacja</string>
     <string name="author">Autor</string>
     <string name="repository">Repozytorium</string>
-    <string name="title_activity_add_car">Nowy pojazd</string>
-    <string name="title_activity_car">Pojazd</string>
-    <string name="title_activity_settings">Ustawienia</string>
-    <string name="pref_title_ringtone">Dzwonek</string>
-    <string name="pref_title_social_recommendations">Włącz rekomendacje społeczne</string>
-    <string name="pref_title_sync_frequency">Częstotliwość synch.</string>
-    <string name="pref_title_system_sync_settings">Systemowe ust. synch.</string>
-    <string name="pref_title_vibrate">Wibracje</string>
-    <string name="pref_title_new_message_notifications">Powiadomienie o nowych wiadomościach</string>
-    <string name="pref_title_display_name">Wyświetlana nazwa</string>
-    <string name="pref_title_add_friends_to_messages">Dodaj znajomych do wiadomości</string>
-    <string name="pref_ringtone_silent">Cisza</string>
-    <string name="pref_header_notifications">Powiadomienia</string>
-    <string name="pref_header_data_sync">Synch. danych</string>
-    <string name="pref_header_general">Główne</string>
-    <string name="pref_description_social_recommendations">Rekomendacje dla ludzi z kontaktów…</string>
-    <string name="pref_default_display_name">John Smith</string>
-    <string name="hello_blank_fragment">Witam pusty fragment</string>
-    <string name="title_activity_info">Informacje</string>
-    <string name="title_activity_add_refueling">Nowe tankowanie</string>
 
+    <!-- Car -->
+    <string name="car">Pojazd</string>
+    <string name="brand">Marka</string>
+    <string name="model">Model</string>
+    <string name="registration_number">Numer rejestracyjny</string>
+    <string name="year_of_production">Rok produkcji</string>
+    <string name="mileage">Przebieg</string>
+
+    <!-- Refuel -->
+    <string name="refuel_cost">Koszt tankowania</string>
+    <string name="price_per_liter">Cena za litr</string>
+    <string name="refueled">Zatankowano</string>
+    <string name="distance_traveled">Przejechano</string>
+    <string name="fuel_type">Typ paliwa</string>
+
+    <!-- Empty lists messages -->
+    <string name="no_cars">Brak pojazdów</string>
+    <string name="no_refuels">Brak tankowań</string>
+
+    <!-- Common -->
+    <string name="save">Zapisz</string>
+    <string name="general">Ogólne</string>
+
+
+
+
+
+
+
+
+    <!-- EVERYTHING BELOW THAT COMMENT IS TO DELETE OR EDIT -->
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <!-- Strings related to Settings -->
+    <!-- Example General settings -->
+    <!--<string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
     <string-array name="pref_example_list_titles">
-        <item>Zawsze</item>
-        <item>Gdy możliwe</item>
-        <item>Nigdy</item>
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
     </string-array>
     <string-array name="pref_example_list_values">
         <item>1</item>
@@ -46,13 +109,17 @@
         <item>-1</item>
     </string-array>
 
+    &lt;!&ndash; Example settings for Data & Sync &ndash;&gt;
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
     <string-array name="pref_sync_frequency_titles">
-        <item>15 minut</item>
-        <item>30 minut</item>
-        <item>1 godzina</item>
-        <item>3 godziny</item>
-        <item>6 godzin</item>
-        <item>Nigdy</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
     </string-array>
     <string-array name="pref_sync_frequency_values">
         <item>15</item>
@@ -64,13 +131,32 @@
     </string-array>
 
     <string-array name="list_preference_entries">
-        <item>Wpis 1</item>
-        <item>Wpis 2</item>
-        <item>Wpis 3</item>
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
     </string-array>
+
     <string-array name="list_preference_entry_values">
         <item>1</item>
         <item>2</item>
         <item>3</item>
     </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    &lt;!&ndash; Example settings for Notifications &ndash;&gt;
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="author">Author</string>
+    <string name="repository">Repository</string>
+    <string name="title_activity_add_car">New car</string>
+    <string name="title_activity_add_refueling">New refueling</string>-->
 </resources>

@@ -1,38 +1,22 @@
 package pl.marek.refueler.activities;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.TextView;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import pl.marek.refueler.R;
 import pl.marek.refueler.database.Car;
 
 public class AddCarActivity extends AppCompatActivity {
     private Car car = new Car();
-
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
 
     @Bind(R.id.set_brand)
     EditText brand;
@@ -62,10 +46,11 @@ public class AddCarActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if(getIntent().getExtras() != null) {
-            car = (Car) getIntent().getExtras().get("car");
-            if (car != null) {
-                setCar();
+            if(getIntent().getExtras().get("car") != null) {
+                car = (Car) getIntent().getExtras().get("car");
                 getSupportActionBar().setTitle(car.getBrand() + " " + car.getModel());
+                totalDistance.setVisibility(View.GONE);
+                setCar();
             }
         }
     }
@@ -87,17 +72,10 @@ public class AddCarActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void saveCar() {
+    private void saveCar() {
         Car car = new Car();
 
-        if (this.car != null) {
-            car.setId(this.car.getId());
-        }
-
-        car.setBrand(this.car.getBrand());
-        car.setModel(this.car.getModel());
-        car.setRegistrationNumber(this.car.getRegistrationNumber());
-        car.setTotalDistance(this.car.getTotalDistance());
+        car.setId(this.car.getId());
 
         if (carValidation(car)) {
             car.save();
@@ -136,6 +114,16 @@ public class AddCarActivity extends AppCompatActivity {
         } else {
             totalDistance.setError("Pole nie może być puste");
             valid = false;
+        }
+
+        // not obligatory fields
+        if(productionYear.getText().length() == 4) {
+            car.setProductionYear(Integer.parseInt(productionYear.getText().toString()));
+        } else {
+            if(!TextUtils.isEmpty(productionYear.getText())) {
+                productionYear.setError("Należy podać prawidłowy rok");
+                valid = false;
+            }
         }
 
         return valid;
