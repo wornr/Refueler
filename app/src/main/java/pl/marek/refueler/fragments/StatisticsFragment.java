@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -25,6 +28,12 @@ public class StatisticsFragment extends Fragment {
     private BigDecimal totalDistanceCovered = new BigDecimal(0);
     private BigDecimal totalCost = new BigDecimal(0);
     private BigDecimal averageCost = new BigDecimal(0);
+    private BigDecimal thisYearCost = new BigDecimal(0);
+    private BigDecimal thisMonthCost = new BigDecimal(0);
+    private BigDecimal prevMonthCost = new BigDecimal(0);
+    private BigDecimal thisYearFuel = new BigDecimal(0);
+    private BigDecimal thisMonthFuel = new BigDecimal(0);
+    private BigDecimal prevMonthFuel = new BigDecimal(0);
 
     @Bind(R.id.distance_covered)
     TextView distance_covered;
@@ -102,17 +111,49 @@ public class StatisticsFragment extends Fragment {
         }
 
         if(refuels != null) {
+            Date actualDate = new Date();
+            Calendar actualCalendar = Calendar.getInstance();
+            actualCalendar.setTime(actualDate);
+            int actualYear = actualCalendar.get(Calendar.YEAR);
+            int actualMonth = actualCalendar.get(Calendar.MONTH);
+
             for(Refuel refuel : refuels) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
+                Date date;
+
+                try {
+                    date = sdf.parse(refuel.getRefuelDate());
+                } catch(Exception e) {
+                    throw new RuntimeException(getString(R.string.wrong_date_format));
+                }
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+
                 // GENERAL
                 totalDistanceCovered = totalDistanceCovered.add(new BigDecimal(refuel.getDistance()));
                 totalFuelUsed = totalFuelUsed.add(new BigDecimal(refuel.getVolume()));
                 totalCost = totalCost.add(Services.getInstance().multiply(refuel.getPrice(), refuel.getVolume()));
 
-                // FUEL
-
-
-                // COSTS
+                // FUEL & COSTS
                 averageCost = Services.getInstance().divide(totalCost.toPlainString(), String.valueOf(refuels.size()));
+
+                if(actualYear == year) {
+                    thisYearFuel = thisYearFuel.add(new BigDecimal(refuel.getVolume()));
+                    thisYearCost = thisYearCost.add(Services.getInstance().multiply(refuel.getPrice(), refuel.getVolume()));
+
+                    if (actualMonth == month) {
+                        thisMonthFuel = thisMonthFuel.add(new BigDecimal(refuel.getVolume()));
+                        thisMonthCost = thisMonthCost.add(Services.getInstance().multiply(refuel.getPrice(), refuel.getVolume()));
+                    }
+
+                    if (actualMonth - 1 == month) {
+                        prevMonthFuel = prevMonthFuel.add(new BigDecimal(refuel.getVolume()));
+                        prevMonthCost = prevMonthCost.add(Services.getInstance().multiply(refuel.getPrice(), refuel.getVolume()));
+                    }
+                }
             }
         }
 
@@ -136,7 +177,14 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void initFuel() {
-        // TODO add code for fuel statistics
+        // this year cost
+        fuel_this_year.setText(addVolumeUnit(thisYearFuel.toPlainString()));
+
+        // this month cost
+        fuel_this_month.setText(addVolumeUnit(thisMonthFuel.toPlainString()));
+
+        // prev month cost
+        fuel_prev_month.setText(addVolumeUnit(prevMonthFuel.toPlainString()));
     }
 
     private void initCosts() {
@@ -167,7 +215,7 @@ public class StatisticsFragment extends Fragment {
         else
             cost_max_money_spent.setText(addCurrencyUnit("0"));
 
-        // Smallest fuel price
+        // smallest fuel price
         Refuel var_cost_smallest_price;
         if(car != null)
             var_cost_smallest_price = Query.one(Refuel.class, "SELECT * FROM Refuels WHERE carId = ? ORDER BY price ASC", car.getId()).get();
@@ -179,7 +227,7 @@ public class StatisticsFragment extends Fragment {
         else
             cost_smallest_price.setText(addCurrencyUnit("0"));
 
-        // Biggest fuel price
+        // biggest fuel price
         Refuel var_cost_biggest_price;
         if(car != null)
             var_cost_biggest_price = Query.one(Refuel.class, "SELECT * FROM Refuels WHERE carId = ? ORDER BY price DESC", car.getId()).get();
@@ -190,6 +238,15 @@ public class StatisticsFragment extends Fragment {
             cost_biggest_price.setText(addCurrencyUnit(var_cost_biggest_price.getPrice()));
         else
             cost_biggest_price.setText(addCurrencyUnit("0"));
+
+        // this year cost
+        cost_this_year.setText(addCurrencyUnit(thisYearCost.toPlainString()));
+
+        // this month cost
+        cost_this_month.setText(addCurrencyUnit(thisMonthCost.toPlainString()));
+
+        // prev month cost
+        cost_prev_month.setText(addCurrencyUnit(prevMonthCost.toPlainString()));
     }
 
     private String addCurrencyUnit(String value) {

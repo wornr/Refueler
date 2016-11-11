@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -45,6 +47,9 @@ public class AddRefuelingActivity extends AppCompatActivity {
 
     @Bind(R.id.set_fuel_type)
     Spinner spinnerFuelType;
+
+    @Bind(R.id.set_date)
+    EditText refuel_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,6 +198,21 @@ public class AddRefuelingActivity extends AppCompatActivity {
                 valid = false;
         }
 
+        if(!TextUtils.isEmpty(refuel_date.getText())) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
+            Date date = null;
+            try {
+                date = sdf.parse(refuel_date.getText().toString());
+            } catch(Exception e) {
+                refuel_date.setError(getString(R.string.wrong_date_format));
+                valid = false;
+            }
+            refuel.setRefuelDate(refuel_date.getText().toString());
+        } else {
+            refuel_date.setError(getString(R.string.not_empty));
+            valid = false;
+        }
+
         /*if(!TextUtils.isEmpty(totalDistance.getText())) {
             if (Integer.parseInt(String.valueOf(totalDistance.getText())) > 0) {
                 car.setTotalDistance(Integer.parseInt(totalDistance.getText().toString()));
@@ -212,6 +232,7 @@ public class AddRefuelingActivity extends AppCompatActivity {
         fuel_price.setText(refuel.getPrice(), TextView.BufferType.EDITABLE);
         fuel_volume.setText(refuel.getVolume(), TextView.BufferType.EDITABLE);
         distance.setText(String.valueOf(refuel.getDistance()), TextView.BufferType.EDITABLE);
+        refuel_date.setText(refuel.getRefuelDate(), TextView.BufferType.EDITABLE);
 
         fuelType = refuel.getFuelType();
         car.setId(refuel.getCarId());

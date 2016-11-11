@@ -66,6 +66,7 @@
     <string name="price_per_liter">Price per liter</string>
     <string name="refueled">Refueled</string>
     <string name="distance_traveled">Distance traveled</string>
+    <string name="refuel_date">Refuel date</string>
 
     <!-- Empty lists messages -->
     <string name="no_cars">No cars</string>
@@ -80,6 +81,7 @@
     <string name="not_empty">This field cannot be empty</string>
     <string name="gt_zero">Value must be greater than zero</string>
     <string name="incorrect_year">Enter correct year</string>
+    <string name="wrong_date_format">Wrong date format</string>
 
 
 
