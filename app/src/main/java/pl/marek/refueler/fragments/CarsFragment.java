@@ -22,8 +22,10 @@ import pl.marek.refueler.R;
 import pl.marek.refueler.RecyclerViewClickListener;
 import pl.marek.refueler.activities.AddCarActivity;
 import pl.marek.refueler.adapters.CarsAdapter;
-import pl.marek.refueler.car.activities.CarActivity;
+import pl.marek.refueler.activities.CarActivity;
 import pl.marek.refueler.database.Car;
+import pl.marek.refueler.database.Refuel;
+import se.emilsjolander.sprinkles.Query;
 
 public class CarsFragment extends Fragment implements RecyclerViewClickListener {
     private List<Car> cars;
@@ -83,6 +85,10 @@ public class CarsFragment extends Fragment implements RecyclerViewClickListener 
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
+                            List<Refuel> refuels = Query.many(Refuel.class, "SELECT * FROM Refuels WHERE carId = ?", cars.get(position).getId()).get().asList();
+                            for(Refuel refuel : refuels) {
+                                refuel.delete();
+                            }
                             cars.get(position).delete();
                             initRecyclerView();
                         }})

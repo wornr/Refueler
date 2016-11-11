@@ -1,4 +1,4 @@
-package pl.marek.refueler.car.activities;
+package pl.marek.refueler.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

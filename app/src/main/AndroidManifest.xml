@@ -46,7 +46,7 @@
                 android:value="pl.marek.refueler.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".car.activities.CarActivity"
+            android:name=".activities.CarActivity"
             android:label="@string/title_activity_car"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
