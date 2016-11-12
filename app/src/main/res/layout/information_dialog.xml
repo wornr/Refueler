@@ -17,7 +17,7 @@
     <TextView
         android:id="@+id/app_name"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/text_large_size"
+        android:layout_height="24dp"
         android:layout_toEndOf="@+id/application"
         android:gravity="end|center_vertical"
         android:text="@string/app_name"
@@ -35,7 +35,7 @@
     <TextView
         android:id="@+id/author_name"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/text_large_size"
+        android:layout_height="24dp"
         android:layout_below="@+id/application"
         android:layout_toEndOf="@+id/authors"
         android:gravity="end|center_vertical"
@@ -44,22 +44,21 @@
 
     <TextView
         android:id="@+id/repository"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/authors"
         android:text="@string/repository"
-        android:textSize="@dimen/text_medium_size"
+        android:textSize="@dimen/text_large_size"
         android:textStyle="bold" />
 
-    <!--<TextView
+    <TextView
         android:id="@+id/repository_url"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/repository"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="github.com/wornr/Refueler" />-->
+        android:layout_height="24dp"
+        android:layout_below="@+id/authors"
+        android:layout_toEndOf="@+id/repository"
+        android:gravity="end|center_vertical"
+        android:text="github.com/wornr/Refueler" />
 
 
 </RelativeLayout>

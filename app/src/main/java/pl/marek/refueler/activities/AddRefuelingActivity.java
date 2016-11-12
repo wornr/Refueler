@@ -1,20 +1,27 @@
 package pl.marek.refueler.activities;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +36,7 @@ public class AddRefuelingActivity extends AppCompatActivity {
     private Refuel refuel = new Refuel();
     private Car car = new Car();
     private String fuelType = "";
+    private DialogFragment datePicker = new DatePickerFragment();
 
     @Bind(R.id.car_layout)
     LinearLayout car_layout;
@@ -128,6 +136,22 @@ public class AddRefuelingActivity extends AppCompatActivity {
                 }
             }
         }
+
+        refuel_date.setInputType(InputType.TYPE_NULL);
+        refuel_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(v);
+            }
+        });
+        refuel_date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    showDatePickerDialog(v);
+                }
+            }
+        });
     }
 
     @Override
@@ -200,9 +224,8 @@ public class AddRefuelingActivity extends AppCompatActivity {
 
         if(!TextUtils.isEmpty(refuel_date.getText())) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
-            Date date = null;
             try {
-                date = sdf.parse(refuel_date.getText().toString());
+                sdf.parse(refuel_date.getText().toString());
             } catch(Exception e) {
                 refuel_date.setError(getString(R.string.wrong_date_format));
                 valid = false;
@@ -236,5 +259,38 @@ public class AddRefuelingActivity extends AppCompatActivity {
 
         fuelType = refuel.getFuelType();
         car.setId(refuel.getCarId());
+    }
+
+    public void showDatePickerDialog(View v) {
+        datePicker.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
+            Date date = null;
+            try {
+                date = sdf.parse(((EditText)getActivity().findViewById(R.id.set_date)).getText().toString());
+            } catch(Exception ignored) {
+            }
+
+            final Calendar c = Calendar.getInstance();
+            if(date != null)
+                c.setTime(date);
+
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            ((EditText)getActivity().findViewById(R.id.set_date)).setText(year + "-" + (month < 9 ? "0" + (month + 1) : (month + 1)) + "-" + (day < 10 ? "0" + day : day));
+        }
     }
 }

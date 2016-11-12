@@ -154,7 +154,7 @@
                         android:inputType="date"
                         android:hint="@string/refuel_date"
                         android:maxLines="1"
-                        android:maxLength="10"/>
+                        android:maxLength="10" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
         </LinearLayout>
