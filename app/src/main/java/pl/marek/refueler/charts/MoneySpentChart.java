@@ -19,6 +19,7 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -45,12 +46,32 @@ public class MoneySpentChart extends Fragment {
 
     private void initView() {
         List<Refuel> refuels = Query.all(Refuel.class).get().asList();
-        final long minTimestamp = Services.getInstance().getMinTimestamp(refuels);
+
+        List<Integer> xVals = new ArrayList<>();
+        List<Float> yVals = new ArrayList<>();
+
+        Date date = new Date();
+        for (Refuel refuel : refuels) {
+            if(Services.getInstance().getYear(date) == Services.getInstance().getYear(refuel.getRefuelDate())) {
+                int month = Services.getInstance().getMonth(refuel.getRefuelDate());
+                if(!xVals.contains(month)) {
+                    xVals.add(month);
+                    yVals.add(Float.parseFloat(Services.getInstance().multiply(refuel.getPrice(), refuel.getVolume()).toPlainString()));
+                } else {
+                    int index = xVals.indexOf(month);
+                    float temp = yVals.get(index);
+                    yVals.remove(index);
+                    xVals.remove(index);
+                    xVals.add(month);
+                    yVals.add(temp + Float.parseFloat(Services.getInstance().multiply(refuel.getPrice(), refuel.getVolume()).toPlainString()));
+                }
+            }
+        }
 
         List<BarEntry> refuelCost = new ArrayList<>();
-
-        for (Refuel data : refuels) {
-            refuelCost.add(new BarEntry(Services.getInstance().dateToFloat(data.getRefuelDate(), minTimestamp), Float.parseFloat(Services.getInstance().multiplyString(data.getPrice(), data.getVolume()))));
+        for (int i = 0; i < xVals.size(); i++) {
+            System.out.println("X: " + xVals.get(i) + "\nY: " + yVals.get(i));
+            refuelCost.add(new BarEntry(xVals.get(i), yVals.get(i)));
         }
 
         BarDataSet refuelCostDataSet = new BarDataSet(refuelCost, getString(R.string.refuel_cost));
@@ -68,7 +89,7 @@ public class MoneySpentChart extends Fragment {
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                return Services.getInstance().floatToDate(value, minTimestamp);
+                return getResources().getStringArray(R.array.month)[(int)value];
             }
 
             @Override
@@ -76,6 +97,7 @@ public class MoneySpentChart extends Fragment {
                 return 0;
             }
         });
+        xAxis.setGranularity(1f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextSize(10f);
         xAxis.setTextColor(Color.BLACK);

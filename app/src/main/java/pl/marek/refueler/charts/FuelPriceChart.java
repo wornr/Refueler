@@ -17,7 +17,10 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.EntryXComparator;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -51,6 +54,8 @@ public class FuelPriceChart extends Fragment {
         for (Refuel data : refuels) {
             refuelPrice.add(new Entry(Services.getInstance().dateToFloat(data.getRefuelDate(), minTimestamp), Float.parseFloat(data.getPrice())));
         }
+
+        Collections.sort(refuelPrice, new EntryXComparator());
 
         LineDataSet refuelPriceDataSet = new LineDataSet(refuelPrice, "Cena paliwa");
         refuelPriceDataSet.setColor(Color.GREEN,100);

@@ -88,6 +88,21 @@
     <string name="incorrect_year">Enter correct year</string>
     <string name="wrong_date_format">Wrong date format</string>
 
+    <!-- Months -->
+    <string-array name="month">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
 
     <!-- EVERYTHING BELOW THAT COMMENT IS TO DELETE OR EDIT -->
     <string name="pref_ringtone_silent">Silent</string>

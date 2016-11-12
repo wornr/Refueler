@@ -1,10 +1,16 @@
 package pl.marek.refueler;
 
+import android.widget.EditText;
+
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import pl.marek.refueler.database.Refuel;
 
@@ -100,5 +106,54 @@ public class Services {
         }
 
         return minTimestamp;
+    }
+
+    public Date stringToDate(String stringDate) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
+        Date date = new Date();
+        try {
+            date = sdf.parse(stringDate);
+        } catch(Exception ignored) {}
+
+        return date;
+    }
+
+    public int getYear(String stringDate) {
+        Date date = stringToDate(stringDate);
+
+        return getYear(date);
+    }
+
+    public int getMonth(String stringDate) {
+        Date date = stringToDate(stringDate);
+
+        return getMonth(date);
+    }
+
+    public int getDay(String stringDate) {
+        Date date = stringToDate(stringDate);
+
+        return getDay(date);
+    }
+
+    public int getYear(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        return calendar.get(Calendar.YEAR);
+    }
+
+    public int getMonth(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        return calendar.get(Calendar.MONTH);
+    }
+
+    public int getDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        return calendar.get(Calendar.DAY_OF_MONTH);
     }
 }

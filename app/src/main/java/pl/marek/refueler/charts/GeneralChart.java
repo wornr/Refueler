@@ -16,8 +16,10 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.EntryXComparator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -55,6 +57,9 @@ public class GeneralChart extends Fragment {
             refuelCost.add(new Entry(Services.getInstance().dateToFloat(data.getRefuelDate(), minTimestamp), Float.parseFloat(Services.getInstance().multiplyString(data.getPrice(), data.getVolume()))));
         }
 
+        Collections.sort(refuelVolume, new EntryXComparator());
+        Collections.sort(refuelCost, new EntryXComparator());
+
         LineDataSet refuelVolumeDataSet = new LineDataSet(refuelVolume, getString(R.string.refueled));
         refuelVolumeDataSet.setColor(Color.RED,100);
         refuelVolumeDataSet.setValueTextColor(Color.RED);
@@ -86,6 +91,7 @@ public class GeneralChart extends Fragment {
                 return 0;
             }
         });
+        //xAxis.setGranularity(5f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextSize(10f);
         xAxis.setTextColor(Color.BLACK);
