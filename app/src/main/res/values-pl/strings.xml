@@ -47,6 +47,11 @@
     <string name="this_month">W tym miesiącu</string>
     <string name="prev_month">W poprzednim miesiącu</string>
 
+    <!-- Charts -->
+    <string name="general_chart">Ogólne</string>
+    <string name="money_spent_chart">Wydatki</string>
+    <string name="fuel_price_chart">Ceny paliwa</string>
+
     <!-- Information Dialog -->
     <string name="application">Aplikacja</string>
     <string name="author">Autor</string>
@@ -82,11 +87,6 @@
     <string name="gt_zero">Wartość musi być więszka od zera</string>
     <string name="incorrect_year">Należy podać poprawny rok</string>
     <string name="wrong_date_format">Błędny format daty</string>
-
-
-
-
-
 
 
     <!-- EVERYTHING BELOW THAT COMMENT IS TO DELETE OR EDIT -->

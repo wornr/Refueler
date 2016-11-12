@@ -20,32 +20,37 @@
     <string name="info">Information</string>
 
     <!-- Statistics -->
-        <!-- Groups -->
-        <string name="general_statistics">General</string>
-        <string name="fuel_statistics">Fuel</string>
-        <string name="cost_statistics">Cost</string>
+    <!-- Groups -->
+    <string name="general_statistics">General</string>
+    <string name="fuel_statistics">Fuel</string>
+    <string name="cost_statistics">Cost</string>
 
-        <!-- General -->
-        <string name="total_fuel_usage">Total fuel usage</string>
-        <string name="refueling_count">Refueling count</string>
-        <string name="overall_cost">Overall cost</string>
+    <!-- General -->
+    <string name="total_fuel_usage">Total fuel usage</string>
+    <string name="refueling_count">Refueling count</string>
+    <string name="overall_cost">Overall cost</string>
 
-        <!-- Fuel -->
-        <string name="minimal_fuel_consumption">Min. consumption</string>
-        <string name="average_fuel_consumption">Avg. consumption</string>
-        <string name="maximal_fuel_consumption">Max. consumption</string>
+    <!-- Fuel -->
+    <string name="minimal_fuel_consumption">Min. consumption</string>
+    <string name="average_fuel_consumption">Avg. consumption</string>
+    <string name="maximal_fuel_consumption">Max. consumption</string>
 
-        <!-- Cost -->
-        <string name="lowest_bill">Lowest bill</string>
-        <string name="average_bill">Average bill</string>
-        <string name="highest_bill">Highest bill</string>
-        <string name="lowest_fuel_price">Lowest fuel price</string>
-        <string name="highest_fuel_price">Highest fuel price</string>
+    <!-- Cost -->
+    <string name="lowest_bill">Lowest bill</string>
+    <string name="average_bill">Average bill</string>
+    <string name="highest_bill">Highest bill</string>
+    <string name="lowest_fuel_price">Lowest fuel price</string>
+    <string name="highest_fuel_price">Highest fuel price</string>
 
-        <!-- Common -->
-        <string name="this_year">This year</string>
-        <string name="this_month">This month</string>
-        <string name="prev_month">Previous month</string>
+    <!-- Common -->
+    <string name="this_year">This year</string>
+    <string name="this_month">This month</string>
+    <string name="prev_month">Previous month</string>
+
+    <!-- Charts -->
+    <string name="general_chart">General</string>
+    <string name="money_spent_chart">Money spent</string>
+    <string name="fuel_price_chart">Fuel prices</string>
 
     <!-- Information Dialog -->
     <string name="application">Application</string>
@@ -82,11 +87,6 @@
     <string name="gt_zero">Value must be greater than zero</string>
     <string name="incorrect_year">Enter correct year</string>
     <string name="wrong_date_format">Wrong date format</string>
-
-
-
-
-
 
 
     <!-- EVERYTHING BELOW THAT COMMENT IS TO DELETE OR EDIT -->

@@ -164,27 +164,27 @@ public class StatisticsFragment extends Fragment {
 
     private void initGeneral() {
         // total distance covered
-        distance_covered.setText(addDistanceUnit(totalDistanceCovered.toPlainString()));
+        distance_covered.setText(Services.getInstance().addDistanceUnit(totalDistanceCovered.toPlainString()));
 
         // total fuel usage
-        fuel_usage.setText(addVolumeUnit(totalFuelUsed.toPlainString()));
+        fuel_usage.setText(Services.getInstance().addVolumeUnit(totalFuelUsed.toPlainString()));
 
         // refuel count
         refuel_count.setText(String.valueOf(refuels.size()));
 
         // total fuel usage
-        money_spent.setText(addCurrencyUnit(totalCost.toPlainString()));
+        money_spent.setText(Services.getInstance().addCurrencyUnit(totalCost.toPlainString()));
     }
 
     private void initFuel() {
         // this year cost
-        fuel_this_year.setText(addVolumeUnit(thisYearFuel.toPlainString()));
+        fuel_this_year.setText(Services.getInstance().addVolumeUnit(thisYearFuel.toPlainString()));
 
         // this month cost
-        fuel_this_month.setText(addVolumeUnit(thisMonthFuel.toPlainString()));
+        fuel_this_month.setText(Services.getInstance().addVolumeUnit(thisMonthFuel.toPlainString()));
 
         // prev month cost
-        fuel_prev_month.setText(addVolumeUnit(prevMonthFuel.toPlainString()));
+        fuel_prev_month.setText(Services.getInstance().addVolumeUnit(prevMonthFuel.toPlainString()));
     }
 
     private void initCosts() {
@@ -196,12 +196,12 @@ public class StatisticsFragment extends Fragment {
             var_cost_min_money_spent = Query.one(Refuel.class, "SELECT * FROM Refuels ORDER BY price ASC").get();
 
         if (var_cost_min_money_spent != null)
-            cost_min_money_spent.setText(addCurrencyUnit(Services.getInstance().multiplyString(var_cost_min_money_spent.getPrice(), var_cost_min_money_spent.getVolume())));
+            cost_min_money_spent.setText(Services.getInstance().addCurrencyUnit(Services.getInstance().multiplyString(var_cost_min_money_spent.getPrice(), var_cost_min_money_spent.getVolume())));
         else
-            cost_min_money_spent.setText(addCurrencyUnit("0"));
+            cost_min_money_spent.setText(Services.getInstance().addCurrencyUnit("0"));
 
         // average money spent for bill
-        cost_avg_money_spent.setText(addCurrencyUnit(averageCost.toPlainString()));
+        cost_avg_money_spent.setText(Services.getInstance().addCurrencyUnit(averageCost.toPlainString()));
 
         // maximal money spent for bill
         Refuel var_cost_max_money_spent;
@@ -211,9 +211,9 @@ public class StatisticsFragment extends Fragment {
             var_cost_max_money_spent = Query.one(Refuel.class, "SELECT * FROM Refuels ORDER BY price DESC").get();
 
         if (var_cost_max_money_spent != null)
-            cost_max_money_spent.setText(addCurrencyUnit(Services.getInstance().multiplyString(var_cost_max_money_spent.getPrice(), var_cost_max_money_spent.getVolume())));
+            cost_max_money_spent.setText(Services.getInstance().addCurrencyUnit(Services.getInstance().multiplyString(var_cost_max_money_spent.getPrice(), var_cost_max_money_spent.getVolume())));
         else
-            cost_max_money_spent.setText(addCurrencyUnit("0"));
+            cost_max_money_spent.setText(Services.getInstance().addCurrencyUnit("0"));
 
         // smallest fuel price
         Refuel var_cost_smallest_price;
@@ -223,9 +223,9 @@ public class StatisticsFragment extends Fragment {
             var_cost_smallest_price = Query.one(Refuel.class, "SELECT * FROM Refuels ORDER BY price ASC").get();
 
         if (var_cost_smallest_price != null)
-            cost_smallest_price.setText(addCurrencyUnit(var_cost_smallest_price.getPrice()));
+            cost_smallest_price.setText(Services.getInstance().addCurrencyUnit(var_cost_smallest_price.getPrice()));
         else
-            cost_smallest_price.setText(addCurrencyUnit("0"));
+            cost_smallest_price.setText(Services.getInstance().addCurrencyUnit("0"));
 
         // biggest fuel price
         Refuel var_cost_biggest_price;
@@ -235,32 +235,17 @@ public class StatisticsFragment extends Fragment {
             var_cost_biggest_price = Query.one(Refuel.class, "SELECT * FROM Refuels ORDER BY price DESC").get();
 
         if (var_cost_biggest_price != null)
-            cost_biggest_price.setText(addCurrencyUnit(var_cost_biggest_price.getPrice()));
+            cost_biggest_price.setText(Services.getInstance().addCurrencyUnit(var_cost_biggest_price.getPrice()));
         else
-            cost_biggest_price.setText(addCurrencyUnit("0"));
+            cost_biggest_price.setText(Services.getInstance().addCurrencyUnit("0"));
 
         // this year cost
-        cost_this_year.setText(addCurrencyUnit(thisYearCost.toPlainString()));
+        cost_this_year.setText(Services.getInstance().addCurrencyUnit(thisYearCost.toPlainString()));
 
         // this month cost
-        cost_this_month.setText(addCurrencyUnit(thisMonthCost.toPlainString()));
+        cost_this_month.setText(Services.getInstance().addCurrencyUnit(thisMonthCost.toPlainString()));
 
         // prev month cost
-        cost_prev_month.setText(addCurrencyUnit(prevMonthCost.toPlainString()));
-    }
-
-    private String addCurrencyUnit(String value) {
-        String currencyUnit = "zł";
-        return value + " " + currencyUnit;
-    }
-
-    private String addVolumeUnit(String value) {
-        String volumeUnit = "l";
-        return value + " " + volumeUnit;
-    }
-
-    private String addDistanceUnit(String value) {
-        String distanceUnit = "km";
-        return value + " " + distanceUnit;
+        cost_prev_month.setText(Services.getInstance().addCurrencyUnit(prevMonthCost.toPlainString()));
     }
 }

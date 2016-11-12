@@ -11,6 +11,7 @@ import java.util.List;
 
 import pl.marek.refueler.R;
 import pl.marek.refueler.RecyclerViewClickListener;
+import pl.marek.refueler.Services;
 import pl.marek.refueler.database.Car;
 import pl.marek.refueler.database.Refuel;
 import se.emilsjolander.sprinkles.Query;
@@ -42,7 +43,7 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.CarsHolder> {
                 totalDistance += refuel.getDistance();
             }
         }
-        holder.carTotalDistance.setText(String.valueOf(carsFromDb.get(position).getTotalDistance() + totalDistance) + " km");
+        holder.carTotalDistance.setText(Services.getInstance().addDistanceUnit(String.valueOf(carsFromDb.get(position).getTotalDistance() + totalDistance)));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

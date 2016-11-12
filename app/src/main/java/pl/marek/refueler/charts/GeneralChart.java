@@ -1,0 +1,99 @@
+package pl.marek.refueler.charts;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import pl.marek.refueler.R;
+import pl.marek.refueler.Services;
+import pl.marek.refueler.charts.formatters.CurrencyFormatter;
+import pl.marek.refueler.charts.formatters.VolumeFormatter;
+import pl.marek.refueler.database.Refuel;
+import se.emilsjolander.sprinkles.Query;
+
+public class GeneralChart extends Fragment {
+    @Bind(R.id.chart_line)
+    LineChart chart;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.chart_line, container, false);
+        ButterKnife.bind(this, v);
+
+        initView();
+
+        return v;
+    }
+
+    private void initView() {
+        List<Refuel> refuels = Query.all(Refuel.class).get().asList();
+        final long minTimestamp = Services.getInstance().getMinTimestamp(refuels);
+
+        List<Entry> refuelVolume = new ArrayList<>();
+        List<Entry> refuelCost = new ArrayList<>();
+
+        for (Refuel data : refuels) {
+            refuelVolume.add(new Entry(Services.getInstance().dateToFloat(data.getRefuelDate(), minTimestamp), Float.parseFloat(data.getVolume())));
+            refuelCost.add(new Entry(Services.getInstance().dateToFloat(data.getRefuelDate(), minTimestamp), Float.parseFloat(Services.getInstance().multiplyString(data.getPrice(), data.getVolume()))));
+        }
+
+        LineDataSet refuelVolumeDataSet = new LineDataSet(refuelVolume, getString(R.string.refueled));
+        refuelVolumeDataSet.setColor(Color.RED,100);
+        refuelVolumeDataSet.setValueTextColor(Color.RED);
+        refuelVolumeDataSet.setValueTextSize(10f);
+        refuelVolumeDataSet.setValueFormatter(new VolumeFormatter());
+
+        LineDataSet refuelCostDataSet = new LineDataSet(refuelCost, getString(R.string.refuel_cost));
+        refuelCostDataSet.setColor(Color.BLUE,100);
+        refuelCostDataSet.setValueTextColor(Color.BLUE);
+        refuelCostDataSet.setValueTextSize(10f);
+        refuelCostDataSet.setValueFormatter(new CurrencyFormatter());
+
+        List<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(refuelVolumeDataSet);
+        dataSets.add(refuelCostDataSet);
+
+        LineData data = new LineData(dataSets);
+        chart.setData(data);
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return Services.getInstance().floatToDate(value, minTimestamp);
+            }
+
+            @Override
+            public int getDecimalDigits() {
+                return 0;
+            }
+        });
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextSize(10f);
+        xAxis.setTextColor(Color.BLACK);
+
+        Description description = new Description();
+        description.setText("");
+        chart.setDescription(description);
+
+        chart.invalidate(); // refresh
+    }
+}

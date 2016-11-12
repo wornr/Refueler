@@ -45,10 +45,10 @@ public class RefuelsAdapter extends RecyclerView.Adapter<RefuelsAdapter.RefuelsH
         int status = carsFromDb.get(position).getStatus();
         holder.taskStatus.setText(getTaskStatus(status));*/
 
-        holder.refuelFuelPrice.setText(refuelFromDb.get(position).getPrice());
-        holder.refuelFuelVolume.setText(refuelFromDb.get(position).getVolume());
-        holder.refuelDistance.setText(String.valueOf(refuelFromDb.get(position).getDistance()));
-        holder.refuelTotalPrice.setText(Services.getInstance().multiplyString(refuelFromDb.get(position).getPrice(), refuelFromDb.get(position).getVolume()));
+        holder.refuelFuelPrice.setText(Services.getInstance().addCurrencyUnit(refuelFromDb.get(position).getPrice()));
+        holder.refuelFuelVolume.setText(Services.getInstance().addVolumeUnit(refuelFromDb.get(position).getVolume()));
+        holder.refuelDistance.setText(Services.getInstance().addDistanceUnit(String.valueOf(refuelFromDb.get(position).getDistance())));
+        holder.refuelTotalPrice.setText(Services.getInstance().addCurrencyUnit(Services.getInstance().multiplyString(refuelFromDb.get(position).getPrice(), refuelFromDb.get(position).getVolume())));
         //holder.carTotalDistance.setText(carsFromDb.get(position).getTotalDistance());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
