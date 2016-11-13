@@ -79,6 +79,8 @@
 
     <!-- Common -->
     <string name="save">Zapisz</string>
+    <string name="edit">Edytuj</string>
+    <string name="delete">Usuń</string>
     <string name="car_delete">Czy na pewno chcesz usunąć ten pojazd?</string>
     <string name="refuel_delete">Czy na pewno chcesz usunąć to tankowanie?</string>
 

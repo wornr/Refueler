@@ -1,16 +1,10 @@
 package pl.marek.refueler;
 
-import android.widget.EditText;
-
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 import pl.marek.refueler.database.Refuel;
 
@@ -83,12 +77,12 @@ public class Services {
 
     public float dateToFloat(String stringDate, long minTimestamp) {
         Date date = parseDate(stringDate);
-        return (float)(date.getTime() - minTimestamp);
+        return ((float)(date.getTime() - minTimestamp))/86400000;
     }
 
     public String floatToDate(float floatDate, long minTimestamp) {
         Date date = new Date();
-        date.setTime((long)(floatDate + minTimestamp));
+        date.setTime(((long)(floatDate * 86400000)) + minTimestamp);
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         int year = c.get(Calendar.YEAR);
@@ -99,13 +93,17 @@ public class Services {
     }
 
     public long getMinTimestamp(List<Refuel> refuels) {
-        long minTimestamp = 0;
+        if(!refuels.isEmpty()) {
+            long minTimestamp = parseDate(refuels.get(0).getRefuelDate()).getTime();
 
-        for(Refuel refuel : refuels) {
-            minTimestamp = (minTimestamp < parseDate(refuel.getRefuelDate()).getTime() ?  minTimestamp : parseDate(refuel.getRefuelDate()).getTime());
-        }
+            for (Refuel refuel : refuels) {
+                System.out.println(dateToFloat(refuel.getRefuelDate(), 0));
+                minTimestamp = (minTimestamp < parseDate(refuel.getRefuelDate()).getTime() ? minTimestamp : parseDate(refuel.getRefuelDate()).getTime());
+            }
 
-        return minTimestamp;
+            return minTimestamp;
+        } else
+            return 0;
     }
 
     public Date stringToDate(String stringDate) {

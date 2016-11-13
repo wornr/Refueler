@@ -1,6 +1,5 @@
 package pl.marek.refueler.charts;
 
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +10,7 @@ import android.view.ViewGroup;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.IMarker;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -27,11 +27,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.marek.refueler.R;
 import pl.marek.refueler.Services;
-import pl.marek.refueler.charts.formatters.CurrencyFormatter;
+import pl.marek.refueler.charts.markers.CurrencyMarkerView;
+import pl.marek.refueler.database.Car;
 import pl.marek.refueler.database.Refuel;
 import se.emilsjolander.sprinkles.Query;
 
 public class FuelPriceChart extends Fragment {
+    private Car car = null;
+
     @Bind(R.id.chart_line)
     LineChart chart;
 
@@ -46,49 +49,66 @@ public class FuelPriceChart extends Fragment {
     }
 
     private void initView() {
-        List<Refuel> refuels = Query.all(Refuel.class).get().asList();
-        final long minTimestamp = Services.getInstance().getMinTimestamp(refuels);
+        Bundle extras = getActivity().getIntent().getExtras();
+        if(extras != null)
+            car = (Car) extras.get("car");
 
-        List<Entry> refuelPrice = new ArrayList<>();
-
-        for (Refuel data : refuels) {
-            refuelPrice.add(new Entry(Services.getInstance().dateToFloat(data.getRefuelDate(), minTimestamp), Float.parseFloat(data.getPrice())));
+        List<Refuel> refuels;
+        if (car != null) {
+            refuels = Query.many(Refuel.class, "SELECT * FROM Refuels WHERE carId = ?", car.getId()).get().asList();
+        } else {
+            refuels = Query.all(Refuel.class).get().asList();
         }
 
-        Collections.sort(refuelPrice, new EntryXComparator());
+        if(refuels != null && !refuels.isEmpty()) {
+            final long minTimestamp = Services.getInstance().getMinTimestamp(refuels);
 
-        LineDataSet refuelPriceDataSet = new LineDataSet(refuelPrice, "Cena paliwa");
-        refuelPriceDataSet.setColor(Color.GREEN,100);
-        refuelPriceDataSet.setValueTextColor(Color.GREEN);
-        refuelPriceDataSet.setValueTextSize(10f);
-        refuelPriceDataSet.setValueFormatter(new CurrencyFormatter());
+            List<Entry> refuelPrice = new ArrayList<>();
 
-        List<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(refuelPriceDataSet);
+            for (Refuel data : refuels)
+                refuelPrice.add(new Entry(Services.getInstance().dateToFloat(data.getRefuelDate(), minTimestamp), Float.parseFloat(data.getPrice())));
 
-        LineData data = new LineData(dataSets);
-        chart.setData(data);
+            Collections.sort(refuelPrice, new EntryXComparator());
 
-        XAxis xAxis = chart.getXAxis();
-        xAxis.setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return Services.getInstance().floatToDate(value, minTimestamp);
-            }
+            LineDataSet refuelPriceDataSet = new LineDataSet(refuelPrice, getString(R.string.price_per_liter));
+            refuelPriceDataSet.setColor(Color.MAGENTA);
+            refuelPriceDataSet.setValueTextSize(0f);
+            refuelPriceDataSet.setCircleColor(Color.MAGENTA);
 
-            @Override
-            public int getDecimalDigits() {
-                return 0;
-            }
-        });
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTextSize(10f);
-        xAxis.setTextColor(Color.BLACK);
+            List<ILineDataSet> dataSets = new ArrayList<>();
+            dataSets.add(refuelPriceDataSet);
 
-        Description description = new Description();
-        description.setText("");
-        chart.setDescription(description);
+            LineData data = new LineData(dataSets);
+            chart.setData(data);
 
-        chart.invalidate(); // refresh
+            IMarker marker = new CurrencyMarkerView(getContext(), R.layout.chart_marker);
+            chart.setMarker(marker);
+
+            XAxis xAxis = chart.getXAxis();
+            xAxis.setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    return Services.getInstance().floatToDate(value, minTimestamp);
+                }
+
+                @Override
+                public int getDecimalDigits() {
+                    return 0;
+                }
+            });
+            xAxis.setGranularityEnabled(true);
+            xAxis.setGranularity(1f);
+            xAxis.setAvoidFirstLastClipping(true);
+            xAxis.setLabelCount(4);
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setTextSize(10f);
+            xAxis.setTextColor(Color.BLACK);
+
+            Description description = new Description();
+            description.setText("");
+            chart.setDescription(description);
+        }
+
+        chart.invalidate();
     }
 }

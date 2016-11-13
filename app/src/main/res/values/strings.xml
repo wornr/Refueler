@@ -79,6 +79,8 @@
 
     <!-- Common -->
     <string name="save">Save</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
     <string name="car_delete">Do you really want to delete this car?</string>
     <string name="refuel_delete">Do you really want to delete this refuel?</string>
 

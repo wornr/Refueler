@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:weightSum="1"
         android:orientation="horizontal"
-        android:padding="6dp">
+        android:padding="6dp"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -53,7 +54,8 @@
                 android:layout_height="wrap_content"
                 android:padding="6dp"
                 android:src="@android:drawable/ic_menu_edit"
-                android:tint="@color/colorAccent" />
+                android:tint="@color/colorAccent"
+                android:contentDescription="@string/edit" />
 
             <ImageView
                 android:id="@+id/delete_icon"
@@ -61,7 +63,8 @@
                 android:layout_height="wrap_content"
                 android:padding="6dp"
                 android:src="@android:drawable/ic_menu_delete"
-                android:tint="@color/colorAccent" />
+                android:tint="@color/colorAccent"
+                android:contentDescription="@string/delete" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
