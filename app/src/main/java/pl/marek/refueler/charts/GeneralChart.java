@@ -1,12 +1,15 @@
 package pl.marek.refueler.charts;
 
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -119,6 +122,10 @@ public class GeneralChart extends Fragment {
             chart.setDescription(description);
         }
 
+        chart.setNoDataText(getString(R.string.no_chart_data));
+        Paint p = chart.getPaint(Chart.PAINT_INFO);
+        p.setTextSize(60f);
+        p.setColor(Color.GRAY);
         chart.invalidate();
     }
 }

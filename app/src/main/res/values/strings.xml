@@ -89,6 +89,7 @@
     <string name="gt_zero">Value must be greater than zero</string>
     <string name="incorrect_year">Enter correct year</string>
     <string name="wrong_date_format">Wrong date format</string>
+    <string name="no_chart_data">No chart data available</string>
 
     <!-- Months -->
     <string-array name="month">

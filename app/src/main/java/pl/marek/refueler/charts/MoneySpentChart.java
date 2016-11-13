@@ -1,6 +1,7 @@
 package pl.marek.refueler.charts;
 
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
@@ -117,6 +119,10 @@ public class MoneySpentChart extends Fragment {
             chart.setFitBars(true);
         }
 
+        chart.setNoDataText(getString(R.string.no_chart_data));
+        Paint p = chart.getPaint(Chart.PAINT_INFO);
+        p.setTextSize(60f);
+        p.setColor(Color.GRAY);
         chart.invalidate();
     }
 }

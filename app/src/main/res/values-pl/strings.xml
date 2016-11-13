@@ -89,6 +89,7 @@
     <string name="gt_zero">Wartość musi być więszka od zera</string>
     <string name="incorrect_year">Należy podać poprawny rok</string>
     <string name="wrong_date_format">Błędny format daty</string>
+    <string name="no_chart_data">Brak danych</string>
 
     <!-- Months -->
     <string-array name="month">
