@@ -100,7 +100,6 @@ public class FuelPriceChart extends Fragment {
             });
             xAxis.setGranularityEnabled(true);
             xAxis.setGranularity(1f);
-            xAxis.setAvoidFirstLastClipping(true);
             xAxis.setLabelCount(4);
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
             xAxis.setTextSize(10f);

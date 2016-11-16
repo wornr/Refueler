@@ -13,6 +13,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.marek.refueler.R;
+import pl.marek.refueler.Services;
 import pl.marek.refueler.database.Car;
 
 public class AddCarActivity extends AppCompatActivity {
@@ -57,6 +58,13 @@ public class AddCarActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.edit, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_save);
+
+        if (menuItem != null) {
+            Services.getInstance().tintMenuIcon(this, menuItem, android.R.color.white);
+        }
+
         return true;
     }
 

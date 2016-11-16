@@ -17,6 +17,7 @@ import android.view.MenuItem;
 
 import pl.marek.refueler.InformationDialog;
 import pl.marek.refueler.R;
+import pl.marek.refueler.Services;
 import pl.marek.refueler.activities.SettingsActivity;
 import pl.marek.refueler.fragments.ChartsFragment;
 import pl.marek.refueler.fragments.DailyRefuelingFragment;
@@ -100,6 +101,13 @@ public class CarActivity extends AppCompatActivity implements NavigationView.OnN
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_settings);
+
+        if (menuItem != null) {
+            Services.getInstance().tintMenuIcon(this, menuItem, android.R.color.white);
+        }
+
         return true;
     }
 

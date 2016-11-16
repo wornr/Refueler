@@ -33,7 +33,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight=".75"
+                    android:layout_weight=".7"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_medium_size"
                     android:text="@string/price_per_liter"/>
@@ -41,7 +41,7 @@
                 <TextView
                     android:id="@+id/refuel_fuel_price"
                     android:layout_width="0dp"
-                    android:layout_weight=".25"
+                    android:layout_weight=".3"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_medium_size"
                     android:gravity="end" />
@@ -56,14 +56,14 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight=".75"
+                    android:layout_weight=".7"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_medium_size"
                     android:text="@string/refueled"/>
 
                 <TextView
                     android:id="@+id/refuel_fuel_volume"
-                    android:layout_weight=".25"
+                    android:layout_weight=".3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_medium_size"
@@ -79,7 +79,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight=".75"
+                    android:layout_weight=".7"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_medium_size"
                     android:text="@string/refuel_cost"/>
@@ -87,7 +87,7 @@
                 <TextView
                     android:id="@+id/refuel_total_price"
                     android:layout_width="0dp"
-                    android:layout_weight=".25"
+                    android:layout_weight=".3"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_medium_size"
                     android:gravity="end" />
@@ -102,7 +102,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight=".75"
+                    android:layout_weight=".7"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_medium_size"
                     android:text="@string/distance_traveled"/>
@@ -110,7 +110,7 @@
                 <TextView
                     android:id="@+id/refuel_distance"
                     android:layout_width="0dp"
-                    android:layout_weight=".25"
+                    android:layout_weight=".3"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_medium_size"
                     android:gravity="end" />
@@ -146,7 +146,7 @@
                 android:padding="6dp"
                 android:paddingEnd="0dp"
                 android:src="@android:drawable/ic_menu_edit"
-                android:tint="@color/colorAccent"
+                android:tint="@color/cardViewIcons"
                 android:contentDescription="@string/edit" />
 
             <ImageView
@@ -156,7 +156,7 @@
                 android:padding="6dp"
                 android:paddingEnd="0dp"
                 android:src="@android:drawable/ic_menu_delete"
-                android:tint="@color/colorAccent"
+                android:tint="@color/cardViewIcons"
                 android:contentDescription="@string/delete" />
         </LinearLayout>
     </LinearLayout>

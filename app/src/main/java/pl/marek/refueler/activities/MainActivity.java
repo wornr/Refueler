@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import pl.marek.refueler.Services;
 import pl.marek.refueler.fragments.CarsFragment;
 import pl.marek.refueler.fragments.ChartsFragment;
 import pl.marek.refueler.fragments.DailyRefuelingFragment;
@@ -94,6 +95,12 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_settings);
+
+        if (menuItem != null) {
+            Services.getInstance().tintMenuIcon(this, menuItem, android.R.color.white);
+        }
         return true;
     }
 
