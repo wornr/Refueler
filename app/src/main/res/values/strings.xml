@@ -87,6 +87,7 @@
 
     <!-- Validation Errors -->
     <string name="not_empty">This field cannot be empty</string>
+    <string name="not_chosen">You should choose correct value</string>
     <string name="gt_zero">Value must be greater than zero</string>
     <string name="incorrect_year">Enter correct year</string>
     <string name="wrong_date_format">Wrong date format</string>

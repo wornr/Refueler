@@ -179,7 +179,7 @@ public class Services {
         return sdf.format(stringToDate(date));
     }
 
-    public static void tintMenuIcon(Context context, MenuItem item, @ColorRes int color) {
+    public void tintMenuIcon(Context context, MenuItem item, @ColorRes int color) {
         Drawable normalDrawable = item.getIcon();
         Drawable wrapDrawable = DrawableCompat.wrap(normalDrawable);
         DrawableCompat.setTint(wrapDrawable, context.getResources().getColor(color));

@@ -216,18 +216,29 @@ public class AddRefuelingActivity extends AppCompatActivity {
             valid = false;
         }
 
-        // TODO fuel type selection validation (set error message)
-        if (!fuelType.equals(getResources().getStringArray(R.array.fuel_types_array)[0])) {
-            refuel.setFuelType(fuelType);
-        } else {
-            valid = false;
+        View selectedView = spinnerFuelType.getSelectedView();
+        if (selectedView != null && selectedView instanceof TextView) {
+            TextView selectedTextView = (TextView) selectedView;
+            if (!fuelType.equals(getResources().getStringArray(R.array.fuel_types_array)[0])) {
+                refuel.setFuelType(fuelType);
+            } else {
+                selectedTextView.setError(getString(R.string.not_chosen));
+                valid = false;
+            }
         }
 
-        // TODO car selection validation (set error message)
         refuel.setCarId(car.getId());
         if (spinnerCar.getVisibility() == View.VISIBLE) {
-            if(car.getId() == 0)
-                valid = false;
+            selectedView = spinnerCar.getSelectedView();
+            if (selectedView != null && selectedView instanceof TextView) {
+                TextView selectedTextView = (TextView) selectedView;
+                if (car.getId() != 0) {
+                    refuel.setFuelType(((TextView) selectedView).getText().toString());
+                } else {
+                    selectedTextView.setError(getString(R.string.not_chosen));
+                    valid = false;
+                }
+            }
         }
 
         if(!TextUtils.isEmpty(refuel_date.getText())) {
@@ -243,18 +254,6 @@ public class AddRefuelingActivity extends AppCompatActivity {
             refuel_date.setError(getString(R.string.not_empty));
             valid = false;
         }
-
-        /*if(!TextUtils.isEmpty(totalDistance.getText())) {
-            if (Integer.parseInt(String.valueOf(totalDistance.getText())) > 0) {
-                car.setTotalDistance(Integer.parseInt(totalDistance.getText().toString()));
-            } else {
-                totalDistance.setError("Wartość musi być większa od zera");
-                valid = false;
-            }
-        } else {
-            totalDistance.setError("Pole nie może być puste");
-            valid = false;
-        }*/
 
         return valid;
     }

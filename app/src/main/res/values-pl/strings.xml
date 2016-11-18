@@ -87,6 +87,7 @@
 
     <!-- Validation Errors -->
     <string name="not_empty">Pole nie może być puste</string>
+    <string name="not_chosen">Należy wybrać poprawną wartość</string>
     <string name="gt_zero">Wartość musi być więszka od zera</string>
     <string name="incorrect_year">Należy podać poprawny rok</string>
     <string name="wrong_date_format">Błędny format daty</string>
