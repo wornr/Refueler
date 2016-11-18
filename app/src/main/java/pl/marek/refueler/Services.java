@@ -161,6 +161,24 @@ public class Services {
         return calendar.get(Calendar.DAY_OF_MONTH);
     }
 
+    public String getFormatDate(Date date, String format) {
+        if (format == null || format.isEmpty()) {
+            format = "yyyy-M-dd";
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        return sdf.format(date);
+    }
+
+    public String getFormatDate(String date, String format) {
+        if (format == null || format.isEmpty()) {
+            format = "yyyy-M-dd";
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        return sdf.format(stringToDate(date));
+    }
+
     public static void tintMenuIcon(Context context, MenuItem item, @ColorRes int color) {
         Drawable normalDrawable = item.getIcon();
         Drawable wrapDrawable = DrawableCompat.wrap(normalDrawable);

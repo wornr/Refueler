@@ -1,33 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8dp">
 
-    <TextView
-        android:id="@+id/application"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/application"
-        android:textSize="@dimen/text_large_size"
-        android:textStyle="bold" />
+        android:src="@mipmap/ic_launcher"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/app_name"
         android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:layout_toEndOf="@+id/application"
-        android:gravity="end|center_vertical"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
         android:text="@string/app_name"
-        android:textSize="12sp" />
+        android:textSize="@dimen/text_large_size"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/app_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/app_version"
+        android:textSize="@dimen/text_small_size" />
 
     <TextView
         android:id="@+id/authors"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/application"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
         android:text="@string/author"
         android:textSize="@dimen/text_large_size"
         android:textStyle="bold" />
@@ -35,18 +42,17 @@
     <TextView
         android:id="@+id/author_name"
         android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:layout_below="@+id/application"
-        android:layout_toEndOf="@+id/authors"
-        android:gravity="end|center_vertical"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:text="Marek Kamiński"
-        android:textSize="12sp" />
+        android:textSize="@dimen/text_medium_size" />
 
     <TextView
         android:id="@+id/repository"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/authors"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
         android:text="@string/repository"
         android:textSize="@dimen/text_large_size"
         android:textStyle="bold" />
@@ -54,11 +60,10 @@
     <TextView
         android:id="@+id/repository_url"
         android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:layout_below="@+id/authors"
-        android:layout_toEndOf="@+id/repository"
-        android:gravity="end|center_vertical"
-        android:text="github.com/wornr/Refueler" />
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="github.com/wornr/Refueler"
+        android:textSize="@dimen/text_medium_size"/>
 
 
-</RelativeLayout>
+</LinearLayout>

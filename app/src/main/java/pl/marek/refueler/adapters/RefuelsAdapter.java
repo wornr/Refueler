@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -32,26 +33,14 @@ public class RefuelsAdapter extends RecyclerView.Adapter<RefuelsAdapter.RefuelsH
 
     @Override
     public void onBindViewHolder(RefuelsHolder holder, final int position) {
-        /*holder.taskName.setText(carsFromDb.get(position).getEventName());
-        String[] latLng = carsFromDb.get(position).getLocation().split(",");
-        String formatLocation = latLng[0].substring(0, 5) + " " + latLng[1].substring(0, 5);
-        holder.taskLocation.setText(formatLocation);
-
-        if (carsFromDb.get(position).getDate() != null)
-            holder.taskDeadline.setText(carsFromDb.get(position).getDate());
-        else
-            holder.taskDeadline.setText(R.string.unknown_deadline);
-
-        int status = carsFromDb.get(position).getStatus();
-        holder.taskStatus.setText(getTaskStatus(status));*/
-
+        holder.refuelDate.setText(
+                Services.getInstance().getFormatDate(refuelFromDb.get(position).getRefuelDate(), "dd.MM.yyyy"));
         holder.refuelFuelPrice.setText(Services.getInstance().addCurrencyUnit(refuelFromDb.get(position).getPrice()));
-        holder.refuelFuelVolume.setText(Services.getInstance().addVolumeUnit(refuelFromDb.get(position).getVolume()));
-        holder.refuelDistance.setText(Services.getInstance().addDistanceUnit(String.valueOf(refuelFromDb.get(position).getDistance())));
-        holder.refuelTotalPrice.setText(Services.getInstance().addCurrencyUnit(Services.getInstance().multiplyString(refuelFromDb.get(position).getPrice(), refuelFromDb.get(position).getVolume())));
-        //holder.carTotalDistance.setText(carsFromDb.get(position).getTotalDistance());
+        holder.refuelFuelVolume.setText("+ " + Services.getInstance().addVolumeUnit(refuelFromDb.get(position).getVolume()));
+        holder.refuelDistance.setText("+ " + Services.getInstance().addDistanceUnit(String.valueOf(refuelFromDb.get(position).getDistance())));
+        holder.refuelTotalPrice.setText("- " + Services.getInstance().addCurrencyUnit(Services.getInstance().multiplyString(refuelFromDb.get(position).getPrice(), refuelFromDb.get(position).getVolume())));
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.singleRefuel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(listener != null)
@@ -95,21 +84,23 @@ public class RefuelsAdapter extends RecyclerView.Adapter<RefuelsAdapter.RefuelsH
 
 
     class RefuelsHolder extends RecyclerView.ViewHolder {
+        final LinearLayout singleRefuel;
+        final TextView refuelDate;
         final TextView refuelFuelPrice;
         final TextView refuelTotalPrice;
         final TextView refuelFuelVolume;
         final TextView refuelDistance;
-        //final TextView refuelTotalDistance;
         final ImageView editIcon;
         final ImageView deleteIcon;
 
         RefuelsHolder(View view) {
             super(view);
+            singleRefuel = (LinearLayout) view.findViewById(R.id.single_refuel);
+            refuelDate = (TextView) view.findViewById(R.id.refuel_date);
             refuelFuelPrice = (TextView) view.findViewById(R.id.refuel_fuel_price);
             refuelTotalPrice = (TextView) view.findViewById(R.id.refuel_total_price);
             refuelFuelVolume = (TextView) view.findViewById(R.id.refuel_fuel_volume);
             refuelDistance = (TextView) view.findViewById(R.id.refuel_distance);
-            //refuelTotalDistance = (TextView) view.findViewById(R.id.refuel_total_distance);
             editIcon = (ImageView) view.findViewById(R.id.edit_icon);
             deleteIcon = (ImageView) view.findViewById(R.id.delete_icon);
         }

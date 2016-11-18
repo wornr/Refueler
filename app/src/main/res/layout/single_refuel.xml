@@ -19,8 +19,9 @@
         android:baselineAligned="false">
 
         <LinearLayout
+            android:id="@+id/single_refuel"
             android:layout_width="0dp"
-            android:layout_weight=".85"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -32,132 +33,97 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight=".7"
+                    android:id="@+id/refuel_date"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_medium_size"
-                    android:text="@string/price_per_liter"/>
+                    android:textSize="@dimen/text_medium_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/refuel_fuel_price"
-                    android:layout_width="0dp"
-                    android:layout_weight=".3"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_medium_size"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/distance_rectangle"
+                    android:textSize="@dimen/text_small_size"
+                    android:textColor="@android:color/white"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:paddingEnd="3dp"
+                    android:paddingStart="3dp"
                     android:gravity="end" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/fuel_volume"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight=".7"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_medium_size"
-                    android:text="@string/refueled"/>
 
                 <TextView
                     android:id="@+id/refuel_fuel_volume"
-                    android:layout_weight=".3"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_medium_size"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/distance_rectangle"
+                    android:backgroundTint="@android:color/holo_blue_light"
+                    android:textSize="@dimen/text_small_size"
+                    android:textColor="@android:color/white"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:paddingEnd="3dp"
+                    android:paddingStart="3dp"
                     android:gravity="end" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/total_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight=".7"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_medium_size"
-                    android:text="@string/refuel_cost"/>
-
-                <TextView
-                    android:id="@+id/refuel_total_price"
-                    android:layout_width="0dp"
-                    android:layout_weight=".3"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_medium_size"
-                    android:gravity="end" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/distance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight=".7"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_medium_size"
-                    android:text="@string/distance_traveled"/>
 
                 <TextView
                     android:id="@+id/refuel_distance"
-                    android:layout_width="0dp"
-                    android:layout_weight=".3"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_medium_size"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/distance_rectangle"
+                    android:backgroundTint="@android:color/holo_green_light"
+                    android:textSize="@dimen/text_small_size"
+                    android:textColor="@android:color/white"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:paddingEnd="3dp"
+                    android:paddingStart="3dp"
                     android:gravity="end" />
             </LinearLayout>
 
-            <!--<LinearLayout
+            <TextView
+                android:id="@+id/refuel_total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:weightSum="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/refuel_total_distance"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/refuel_distance"
-                    android:textSize="@dimen/text_medium_size"
-                    android:visibility="gone" />
-            </LinearLayout>-->
+                android:layout_margin="2dp"
+                android:background="@drawable/distance_rectangle"
+                android:backgroundTint="@android:color/holo_red_light"
+                android:textSize="@dimen/text_small_size"
+                android:textColor="@android:color/white"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp"
+                android:paddingEnd="3dp"
+                android:paddingStart="3dp"
+                android:gravity="end" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight=".15"
+        <ImageView
+            android:id="@+id/edit_icon"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center_vertical">
+            android:padding="1dp"
+            android:src="@android:drawable/ic_menu_edit"
+            android:tint="@color/cardViewIcons"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/edit" />
 
-            <ImageView
-                android:id="@+id/edit_icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="6dp"
-                android:paddingEnd="0dp"
-                android:src="@android:drawable/ic_menu_edit"
-                android:tint="@color/cardViewIcons"
-                android:contentDescription="@string/edit" />
-
-            <ImageView
-                android:id="@+id/delete_icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="6dp"
-                android:paddingEnd="0dp"
-                android:src="@android:drawable/ic_menu_delete"
-                android:tint="@color/cardViewIcons"
-                android:contentDescription="@string/delete" />
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/delete_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:src="@android:drawable/ic_menu_delete"
+            android:tint="@color/cardViewIcons"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/delete" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

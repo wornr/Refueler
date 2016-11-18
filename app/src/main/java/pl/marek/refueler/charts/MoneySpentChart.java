@@ -18,8 +18,10 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.EntryXComparator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -85,6 +87,8 @@ public class MoneySpentChart extends Fragment {
             List<BarEntry> refuelCost = new ArrayList<>();
             for (int i = 0; i < xVals.size(); i++)
                 refuelCost.add(new BarEntry(xVals.get(i), yVals.get(i)));
+
+            Collections.sort(refuelCost, new EntryXComparator());
 
             BarDataSet refuelCostDataSet = new BarDataSet(refuelCost, getString(R.string.refuel_cost));
             refuelCostDataSet.setValueTextSize(12f);

@@ -108,7 +108,7 @@ public class AddCarActivity extends AppCompatActivity {
         }
 
         if (!TextUtils.isEmpty(registrationNumber.getText())) {
-            car.setRegistrationNumber(registrationNumber.getText().toString());
+            car.setRegistrationNumber(registrationNumber.getText().toString().toUpperCase());
         }
 
         if(!TextUtils.isEmpty(totalDistance.getText())) {
