@@ -81,7 +81,7 @@ public class CarsFragment extends Fragment implements RecyclerViewClickListener 
     public void onDeleteClicked(View v, final int position) {
         if (v.getId() == R.id.delete_icon) {
             new AlertDialog.Builder(getActivity())
-                    .setMessage("Do you really want to delete this car?")
+                    .setMessage(getString(R.string.car_delete))
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
