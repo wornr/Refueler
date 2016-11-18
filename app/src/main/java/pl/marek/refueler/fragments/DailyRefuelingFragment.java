@@ -86,7 +86,7 @@ public class DailyRefuelingFragment extends Fragment implements RecyclerViewClic
     @Override
     public void onRowClicked(int position) {
         // TODO add action
-        Snackbar.make(getView(), "Refuel clicked!", Snackbar.LENGTH_SHORT).show();
+        //Snackbar.make(getView(), "Refuel clicked!", Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

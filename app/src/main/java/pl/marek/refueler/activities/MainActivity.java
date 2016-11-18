@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +22,7 @@ import pl.marek.refueler.InformationDialog;
 import pl.marek.refueler.R;
 import pl.marek.refueler.fragments.StatisticsFragment;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends LocalizationActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String PREF_LAST_DRAWER_FRAGMENT = "last_selected_main_drawer_fragment";
@@ -39,6 +38,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Services.newInstance(this);
         setContentView(R.layout.main_activity);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

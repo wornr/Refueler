@@ -10,7 +10,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,13 +17,12 @@ import android.view.MenuItem;
 import pl.marek.refueler.InformationDialog;
 import pl.marek.refueler.R;
 import pl.marek.refueler.Services;
-import pl.marek.refueler.activities.SettingsActivity;
 import pl.marek.refueler.fragments.ChartsFragment;
 import pl.marek.refueler.fragments.DailyRefuelingFragment;
 import pl.marek.refueler.fragments.StatisticsFragment;
 import pl.marek.refueler.database.Car;
 
-public class CarActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class CarActivity extends LocalizationActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String PREF_LAST_DRAWER_FRAGMENT = "last_selected_car_drawer_fragment";
     private static final DrawerFragmentItem[] DRAWER_FRAGMENTS = new DrawerFragmentItem[]{
@@ -57,7 +55,8 @@ public class CarActivity extends AppCompatActivity implements NavigationView.OnN
         if(getIntent().getExtras() != null) {
             Car car = (Car) getIntent().getExtras().get("car");
             if (car != null) {
-                getSupportActionBar().setTitle(car.getBrand() + " " + car.getModel());
+                if(getSupportActionBar() != null)
+                    getSupportActionBar().setTitle(car.getBrand() + " " + car.getModel());
             }
         }
 

@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -33,7 +32,7 @@ import pl.marek.refueler.database.Car;
 import pl.marek.refueler.database.Refuel;
 import se.emilsjolander.sprinkles.Query;
 
-public class AddRefuelingActivity extends AppCompatActivity {
+public class AddRefuelingActivity extends LocalizationActivity {
     private Refuel refuel = new Refuel();
     private Car car = new Car();
     private String fuelType = "";

@@ -1,0 +1,30 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:key="language_preference"
+        android:title="@string/pref_lang"
+        android:summary="%s"
+        android:entries="@array/pref_lang_labels"
+        android:entryValues="@array/pref_lang_values"
+        android:defaultValue="en"
+        android:dialogTitle="@string/pref_lang_choose" />
+
+    <EditTextPreference
+        android:key="currency_unit_preference"
+        android:title="@string/pref_currency_unit"
+        android:defaultValue="$"
+        android:dialogTitle="@string/pref_currency_unit" />
+
+    <EditTextPreference
+        android:key="distance_unit_preference"
+        android:title="@string/pref_length_unit"
+        android:defaultValue="km"
+        android:dialogTitle="@string/pref_length_unit" />
+
+    <EditTextPreference
+        android:key="volume_unit_preference"
+        android:title="@string/pref_volume_unit"
+        android:defaultValue="l"
+        android:dialogTitle="@string/pref_volume_unit" />
+</PreferenceScreen>

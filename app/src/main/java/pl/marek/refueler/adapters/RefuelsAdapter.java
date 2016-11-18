@@ -35,7 +35,7 @@ public class RefuelsAdapter extends RecyclerView.Adapter<RefuelsAdapter.RefuelsH
     public void onBindViewHolder(RefuelsHolder holder, final int position) {
         holder.refuelDate.setText(
                 Services.getInstance().getFormatDate(refuelFromDb.get(position).getRefuelDate(), "dd.MM.yyyy"));
-        holder.refuelFuelPrice.setText(Services.getInstance().addCurrencyUnit(refuelFromDb.get(position).getPrice()));
+        holder.refuelFuelPrice.setText(Services.getInstance().addCurrencyByVolumeUnit(refuelFromDb.get(position).getPrice()));
         holder.refuelFuelVolume.setText("+ " + Services.getInstance().addVolumeUnit(refuelFromDb.get(position).getVolume()));
         holder.refuelDistance.setText("+ " + Services.getInstance().addDistanceUnit(String.valueOf(refuelFromDb.get(position).getDistance())));
         holder.refuelTotalPrice.setText("- " + Services.getInstance().addCurrencyUnit(Services.getInstance().multiplyString(refuelFromDb.get(position).getPrice(), refuelFromDb.get(position).getVolume())));

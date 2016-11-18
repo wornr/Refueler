@@ -2,6 +2,7 @@ package pl.marek.refueler;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.preference.PreferenceManager;
 import android.support.annotation.ColorRes;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.MenuItem;
@@ -16,6 +17,11 @@ import pl.marek.refueler.database.Refuel;
 
 public class Services {
     private static Services instance;
+    private Context context;
+
+    public static void newInstance(Context context) {
+        getInstance().context = context;
+    }
 
     public static Services getInstance() {
         if(instance == null)
@@ -57,18 +63,24 @@ public class Services {
     }
 
     public String addCurrencyUnit(String value) {
-        String currencyUnit = "zł";
+        String currencyUnit = PreferenceManager.getDefaultSharedPreferences(context).getString("currency_unit_preference", null);
         return value + " " + currencyUnit;
     }
 
     public String addVolumeUnit(String value) {
-        String volumeUnit = "l";
+        String volumeUnit = PreferenceManager.getDefaultSharedPreferences(context).getString("volume_unit_preference", null);
         return value + " " + volumeUnit;
     }
 
     public String addDistanceUnit(String value) {
-        String distanceUnit = "km";
+        String distanceUnit = PreferenceManager.getDefaultSharedPreferences(context).getString("distance_unit_preference", null);
         return value + " " + distanceUnit;
+    }
+
+    public String addCurrencyByVolumeUnit(String value) {
+        String currencyUnit = PreferenceManager.getDefaultSharedPreferences(context).getString("currency_unit_preference", null);
+        String volumeUnit = PreferenceManager.getDefaultSharedPreferences(context).getString("volume_unit_preference", null);
+        return value + " " + currencyUnit + "/" + volumeUnit;
     }
 
     private Date parseDate(String stringDate) {

@@ -1,7 +1,6 @@
 package pl.marek.refueler.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -16,7 +15,7 @@ import pl.marek.refueler.R;
 import pl.marek.refueler.Services;
 import pl.marek.refueler.database.Car;
 
-public class AddCarActivity extends AppCompatActivity {
+public class AddCarActivity extends LocalizationActivity {
     private Car car = new Car();
 
     @Bind(R.id.set_brand)
